@@ -1,5 +1,5 @@
 
-            <!DOCTYPE html>
+              <!DOCTYPE html>
             <html lang="es">
             <head>
                 <meta charset="UTF-8">
@@ -41,6 +41,9 @@
                         .book-cover img, .cover-placeholder { max-width: 200px; }
                         .book-title { font-size: 1.5rem; }
                     }
+                    @media (max-width: 600px) { /* Nuevo: Regla para pantallas de 600px o menos */
+                        .book-cover img { max-width: 400px; width: 100%; } /* Asegura el ancho de 400px o 100% si es más pequeño */
+                    }
                     @media (max-width: 495px) {
                         .book-cover {
                             margin-left: auto;
@@ -68,6 +71,7 @@
                         <svg width="10" height="10" viewBox="0 0 100 100"><polygon points="0,0 100,50 0,100" fill="#006bcd"/></svg>
                         <span style="color: #006bcd;">Colección Aulas Universitarias</span>
                         
+                        
                     </div>
                     <div class="book-content">
                         <div class="book-cover">
@@ -86,7 +90,7 @@
                     </a>
                             </div>
                             <ul class="metadata">
-                                <li><strong>Autor:</strong> Melo, Julián E.</li><li><strong>Año de publicación:</strong> 2025</li><li><strong>Páginas:</strong> 324</li><li><strong>Formato:</strong> 23 × 16 cm</li><li><strong>ISBN:</strong> 978-631-6582-20-1</li>
+                                <li><strong>Autor:</strong> Melo, Julián E.</li><li><strong>Año de publicación:</strong> 2025</li><li><strong>Páginas:</strong> 324</li><li><strong>Formato:</strong> 16 × 23 cm</li><li><strong>ISBN:</strong> 978-631-6582-20-1</li>
                             </ul>
                         </div>
                     </div>
@@ -99,4 +103,5 @@
                 </div>
             </body>
             </html>
+
             
