@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for Inter font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- YouTube Iframe Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <style>
         /* --- ESTILOS GENERALES Y RESETEO --- */
         html {
@@ -19,6 +21,7 @@
             font-family: 'Inter', sans-serif; /* Usando Inter como base para todo el body */
             color: #fff;
             background-color: #0da353; /* Color de fondo inicial para la sección de inicio */
+            overflow-x: hidden; /* Evita el scroll horizontal */
             overscroll-behavior-y: none; /* Evita el efecto "rebote" al final del scroll */
             transition: background-color 0.8s ease; /* Transición suave para el cambio de color de fondo */
         }
@@ -485,7 +488,7 @@
 
         /* New section specific styles */
         #mission-statement {
-            background-color: #ADFF2F; /* Color de fondo actualizado a #ADFF2F */
+            background-color: #0da353; /* Color de fondo actualizado a #0da353 */
             color: #fff; /* White text */
             text-align: center;
             padding: 80px 2rem; /* Add some padding */
@@ -536,21 +539,59 @@
             border: 0;
         }
 
+        /* New styles for the scroll-to-top button */
+        #scroll-to-top-btn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            bottom: 20px; /* 20px from the bottom */
+            right: 20px; /* 20px from the right */
+            z-index: 99; /* High z-index to be on top */
+            border: none; /* No border */
+            outline: none; /* No outline */
+            background-color: #0da353; /* Green background */
+            color: white; /* White text/icon */
+            cursor: pointer; /* Pointer cursor on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Circular shape */
+            font-size: 22px; /* Icon size */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+        }
+
+        #scroll-to-top-btn:hover {
+            background-color: #0a7d40; /* Darker green on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Optional: adjust for smaller screens if needed */
+        @media (max-width: 600px) {
+            #scroll-to-top-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 12px;
+                font-size: 18px;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
     <!-- Header Section -->
     <header class="w-full p-4 bg-white shadow-md flex justify-between items-center z-30 relative">
         <div class="flex items-center space-x-2">
-            <h1 class="text-xl font-bold text-gray-900">Editorial Universitaria</h1>
-            <!-- You can add a logo here if you have one -->
-            <!-- <img src="images/logo.png" alt="Logo" class="h-8"> -->
+            <!-- Replaced h1 with an img tag for the logo, now also a link to the top of the page -->
+            <a href="#">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
+                     alt="Logo Editorial Universitaria"
+                     class="h-10 w-auto"> <!-- Tailwind classes for height and auto width -->
+            </a>
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">Inicio</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">Libros</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-300">Contacto</a></li>
+                <li><a href="#video-section" class="text-gray-600 hover:text-blue-600 transition duration-300">10 AÑOS</a></li>
+                <li><a href="#inicio" class="text-gray-600 hover:text-blue-600 transition duration-300">Colecciones</a></li>
+                <li><a href="#timeline-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Historia</a></li>
+                <li><a href="#cta-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Catálogo</a></li>
             </ul>
         </nav>
     </header>
@@ -563,6 +604,15 @@
              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 object-contain"
              style="z-index: 10;"> <!-- Z-index ajustado para que el logo esté detrás del slider cuando las portadas están al frente -->
 
+        <!-- Content Area below the slider - only author info remains -->
+        <div class="content">
+            <div class="author-info flex flex-col items-center md:items-end">
+                <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
+                <p class="text-lg text-gray-500 mt-2">
+                    Impulsando el conocimiento, la cultura y el saber universitario.
+                </p>
+            </div>
+        </div>
         <!-- 3D Slider Container -->
         <div class="slider" id="bookSlider">
             <!-- Book Cover Items (replace with your actual book cover images) -->
@@ -592,16 +642,6 @@
                 <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif" alt="Portada Libro 8">
             </div>
         </div>
-
-        <!-- Content Area below the slider - only author info remains -->
-        <div class="content">
-            <div class="author-info flex flex-col items-center md:items-end">
-                <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
-                <p class="text-lg text-gray-500 mt-2">
-                    Impulsando el conocimiento, la cultura y el saber universitario.
-                </p>
-            </div>
-        </div>
     </div>
 
     <!-- La imagen flotante sigue siendo un único elemento global -->
@@ -614,7 +654,8 @@
         <!-- Nueva Sección de Video -->
         <section id="video-section">
             <div class="video-responsive">
-                <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- ID para el reproductor de YouTube API -->
+                <iframe id="youtube-player" src="https://www.youtube.com/embed/LXb3EKWsInQ?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -726,7 +767,7 @@
     </section>
 
     <!-- Nueva Sección de Misión -->
-    <section id="mission-statement" class="py-16 bg-[#ADFF2F] text-white text-center">
+    <section id="mission-statement" class="py-16 bg-[#0da353] text-white text-center">
         <div class="container mx-auto px-4">
             <p class="text-2xl leading-relaxed">
                 Seguimos trabajando con compromiso para contribuir al desarrollo del conocimiento, la educación pública y la construcción colectiva de una sociedad más justa y reflexiva, a través de nuestras publicaciones.
@@ -735,7 +776,7 @@
     </section>
 
     <!-- Sección de Llamada a la Acción -->
-    <section class="py-12 bg-gray-200 text-center">
+    <section id="cta-section" class="py-12 bg-gray-200 text-center">
         <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestro catálogo completo?</h2>
         <a href="https://example.com/catalogo.pdf" target="_blank" class="inline-block bg-green-600 text-white text-xl font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition duration-300">
             Ver catálogo completo
@@ -743,7 +784,7 @@
     </section>
 
     <!-- Pie de Página (Footer) -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer id="footer-section" class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Información Institucional -->
             <div class="col-span-1">
@@ -778,7 +819,32 @@
         </div>
     </footer>
 
+    <!-- Floating Scroll-to-Top Button -->
+    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode for an upward arrow -->
+
     <script>
+        let player; // Variable global para el reproductor de YouTube
+
+        // Esta función se ejecuta automáticamente cuando la API de Iframe de YouTube se carga.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Silenciar el video al cargarse, ya que el autoplay sin mutear puede ser bloqueado por los navegadores.
+            event.target.mute(); 
+            // El video no se reproduce automáticamente aquí; el IntersectionObserver lo controlará.
+        }
+
+        function onPlayerStateChange(event) {
+            // Puedes añadir lógica aquí si necesitas reaccionar a cambios de estado del video
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Define todas las listas de portadas para el slider 3D
             const allBookCovers = [
@@ -879,9 +945,10 @@
 
 
             // JavaScript para el cambio de fondo y la imagen flotante
-            const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section'); // Incluye la nueva sección de video
+            const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
             const floatingImage = document.getElementById('floating-image');
             const body = document.body;
+            const videoSection = document.getElementById('video-section');
 
             // Definir los colores de fondo para cada sección por su ID
             const sectionColors = {
@@ -889,14 +956,16 @@
                 'nosotros': '#006bcd',
                 'servicios': '#FF0000',
                 'galeria': '#ffc300',
-                'our-history-images': '#FFFFFF', // Color para la nueva sección de carrusel (blanco)
-                'timeline-section': '#FFFFFF', // La sección de línea de tiempo es blanca
-                'mission-statement': '#ADFF2F', // Color para la nueva sección de misión
-                'video-section': '#333333' // Color para la sección de video
+                'our-history-images': '#FFFFFF',
+                'timeline-section': '#FFFFFF',
+                'mission-statement': '#0da353',
+                'video-section': '#333333',
+                'cta-section': '#e2e8f0',
+                'footer-section': '#1a202c'
             };
 
-            // Secciones en las que la imagen flotante debe ser visible
-            const sectionsForFloatingImageVisibility = ['servicios', 'galeria', 'our-history-images', 'timeline-section', 'mission-statement'];
+            // Secciones en las que la imagen flotante DEBE ser visible
+            const sectionsForFloatingImageVisibility = ['servicios', 'galeria'];
 
             const observer = new IntersectionObserver((entries) => {
                 let anyVisibleFloatingImageSection = false;
@@ -913,6 +982,19 @@
                         if (sectionsForFloatingImageVisibility.includes(sectionId)) {
                             anyVisibleFloatingImageSection = true;
                         }
+
+                        // Lógica de reproducción/pausa del video
+                        if (sectionId === 'video-section' && player) {
+                            // Intentar reproducir el video cuando la sección es visible
+                            // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
+                            player.playVideo();
+                            player.mute(); // Asegurarse de que esté silenciado para el autoplay si es permitido
+                        }
+                    } else {
+                        // Pausar el video cuando la sección no es visible
+                        if (entry.target.id === 'video-section' && player) {
+                            player.pauseVideo();
+                        }
                     }
                 });
 
@@ -920,7 +1002,6 @@
                 if (anyVisibleFloatingImageSection) {
                     floatingImage.classList.remove('fade-out');
                 } else {
-                    // Solo desvanece si ninguna de las secciones deseadas está intersectando actualmente
                     floatingImage.classList.add('fade-out');
                 }
             }, { threshold: 0.1 }); // Umbral pequeño para detectar entrada/salida rápidamente
@@ -930,18 +1011,24 @@
                 observer.observe(section);
             });
 
-            // Inicialmente, ocultar la imagen si la sección de inicio es la primera visible.
-            // Esto asegura que la imagen no aparezca hasta la sección "Ciencias".
+            // Inicialmente, ocultar la imagen si la sección de inicio o cualquier sección donde no deba verse
+            // es la primera visible.
+            const initialHiddenSections = ['inicio', 'nosotros', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'cta-section', 'footer-section'];
+
             const initialCheckObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && (entry.target.id === 'inicio' || entry.target.id === 'nosotros' || entry.target.id === 'video-section')) {
+                    if (entry.isIntersecting && initialHiddenSections.includes(entry.target.id)) {
                         floatingImage.classList.add('fade-out');
                     }
                 });
             }, { threshold: 0.1 });
-            initialCheckObserver.observe(document.getElementById('inicio'));
-            initialCheckObserver.observe(document.getElementById('nosotros'));
-            initialCheckObserver.observe(document.getElementById('video-section'));
+            
+            initialHiddenSections.forEach(sectionId => {
+                const sectionElement = document.getElementById(sectionId);
+                if (sectionElement) {
+                    initialCheckObserver.observe(sectionElement);
+                }
+            });
 
             // Counter animation logic
             const counterElement = document.getElementById('counterDisplay');
@@ -974,6 +1061,23 @@
                     element.textContent = prefix + Math.floor(current) + suffix;
                 }, stepTime);
             }
+
+            // Scroll-to-top button logic
+            const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
+
+            // Show or hide the button based on scroll position
+            window.onscroll = function() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            };
+
+            // When the user clicks on the button, scroll to the top of the document
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         });
     </script>
 </body>
