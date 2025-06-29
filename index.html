@@ -824,6 +824,7 @@
 
     <script>
         let player; // Variable global para el reproductor de YouTube
+        let isPlayerReady = false; // Nueva bandera para verificar si el reproductor de YouTube está listo
 
         // Esta función se ejecuta automáticamente cuando la API de Iframe de YouTube se carga.
         function onYouTubeIframeAPIReady() {
@@ -837,7 +838,8 @@
 
         function onPlayerReady(event) {
             // Silenciar el video al cargarse, ya que el autoplay sin mutear puede ser bloqueado por los navegadores.
-            event.target.mute(); 
+            event.target.mute();
+            isPlayerReady = true; // El reproductor está listo
             // El video no se reproduce automáticamente aquí; el IntersectionObserver lo controlará.
         }
 
@@ -984,7 +986,7 @@
                         }
 
                         // Lógica de reproducción/pausa del video
-                        if (sectionId === 'video-section' && player) {
+                        if (sectionId === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
                             // Intentar reproducir el video cuando la sección es visible
                             // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
                             player.playVideo();
@@ -992,7 +994,7 @@
                         }
                     } else {
                         // Pausar el video cuando la sección no es visible
-                        if (entry.target.id === 'video-section' && player) {
+                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
                             player.pauseVideo();
                         }
                     }
