@@ -308,9 +308,11 @@
 
         /* Nueva regla para centrar el content-wrapper específicamente en la sección de inicio */
         #inicio .content-wrapper {
-            justify-content: center; /* Centra horizontalmente el contenido en la sección de inicio */
+            flex-direction: column; /* Apila el contador y el nuevo texto */
+            justify-content: center; /* Centra horizontal y verticalmente el contenido */
+            text-align: center; /* Asegura que el texto dentro esté centrado */
         }
-
+        
         .text-left, .text-right {
             flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
             padding: 2rem;
@@ -421,7 +423,6 @@
             padding: 10px; /* Adjusted padding */
             cursor: pointer;
             z-index: 10;
-            border-radius: 0; /* Ensured no residual rounding */
             font-size: 1.5rem;
             transition: background-color 0.3s ease;
         }
@@ -544,7 +545,7 @@
         <!-- Content Area below the slider - only author info remains -->
         <div class="content">
             <div class="author-info flex flex-col items-center md:items-end">
-                <h2 class="text-3xl font-semibold text-gray-700">10 AÑOS</h2>
+                <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
                 <p class="text-lg text-gray-500 mt-2">
                     Impulsando el conocimiento, la cultura y el saber universitario.
                 </p>
@@ -565,6 +566,8 @@
                 <div class="counter-display" id="counterDisplay">
                     0
                 </div>
+                <!-- Nuevo nivel de lectura: "Conocé nuestras colecciones" -->
+                <h2 class="text-3xl text-white font-semibold mt-4">Conocé nuestras colecciones</h2>
             </div>
         </section>
 
@@ -702,7 +705,7 @@
             <div class="col-span-1">
                 <h3 class="text-xl font-semibold mb-4">Contacto</h3>
                 <p class="text-gray-400 text-sm">Email: info@editorialuniversitaria.com</p>
-                <p class="text-gray-400 text-sm">Dirección: Calle Ficticia 123, Ciudad Universitaria</p>
+                <p class="text-400 text-sm">Dirección: Calle Ficticia 123, Ciudad Universitaria</p>
                 <p class="text-gray-400 text-sm">Teléfono: +54 9 11 1234 5678</p>
                 <p class="text-gray-400 text-sm mt-2"><a href="https://www.editorialuniversitaria.com" target="_blank" class="hover:underline">www.editorialuniversitaria.com</a></p>
             </div>
