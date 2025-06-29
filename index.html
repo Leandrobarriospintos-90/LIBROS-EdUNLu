@@ -300,10 +300,15 @@
 
         .content-wrapper {
             display: flex;
-            justify-content: space-between; /* Espacia los elementos a los lados */
+            justify-content: space-between; /* Restaurado para espaciar text-left y text-right */
             align-items: center;
             width: 100%;
             max-width: 1400px; /* Ancho máximo para el contenido */
+        }
+
+        /* Nueva regla para centrar el content-wrapper específicamente en la sección de inicio */
+        #inicio .content-wrapper {
+            justify-content: center; /* Centra horizontalmente el contenido en la sección de inicio */
         }
 
         .text-left, .text-right {
@@ -316,7 +321,7 @@
         }
 
         .text-right {
-            text-align: left;
+            text-align: right; /* Alineación del texto a la derecha */
         }
 
         .section h1 {
@@ -343,6 +348,7 @@
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
             margin: 0 2rem; /* Add some horizontal margin */
             flex-shrink: 0; /* Prevent it from shrinking */
+            text-align: center; /* Centrar el texto dentro del contador */
         }
 
         /* Responsive adjustments for counter */
@@ -356,6 +362,12 @@
                 flex-direction: column; /* Stack elements vertically */
                 justify-content: center;
                 text-align: center;
+            }
+
+            .text-left, .text-right {
+                flex-basis: auto; /* Ancho automático */
+                text-align: center;
+                padding: 1rem;
             }
         }
 
@@ -456,18 +468,6 @@
 
         /* --- AJUSTES PARA DISPOSITIVOS MÓVILES (NUEVOS ESTILOS) --- */
         @media (max-width: 768px) {
-            .content-wrapper {
-                flex-direction: column; /* Apila el texto verticalmente */
-                justify-content: center;
-                text-align: center;
-            }
-
-            .text-left, .text-right {
-                flex-basis: auto; /* Ancho automático */
-                text-align: center;
-                padding: 1rem;
-            }
-
             .section h1 {
                 font-size: 2.5rem;
                 margin-bottom: 1rem;
@@ -554,9 +554,9 @@
 
     <!-- La imagen flotante sigue siendo un único elemento global -->
     <img id="floating-image"
-                src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
-                alt="Ilustración de la sección actual"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
+                 src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
+                 alt="Ilustración de la sección actual"
+                 onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
 
     <main>
         <section id="inicio" class="section">
