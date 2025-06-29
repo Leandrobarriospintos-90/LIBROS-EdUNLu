@@ -554,22 +554,16 @@
 
     <!-- La imagen flotante sigue siendo un único elemento global -->
     <img id="floating-image"
-            src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
-            alt="Ilustración de la sección actual"
-            onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
+                src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
+                alt="Ilustración de la sección actual"
+                onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
 
     <main>
         <section id="inicio" class="section">
             <div class="content-wrapper">
-                <div class="text-left">
-                    <h1>Conoce nuestras colecciones</h1>
-                </div>
                 <!-- Contador en el centro -->
-                <div class="counter-display">
-                    +100
-                </div>
-                <div class="text-right">
-                    <p>Nuestro objetivo general es contribuir al desarrollo integral de la UNLu, mediante la promoción y difusión de producciones académicas, de investigación y extensión que satisfagan necesidades y demandas universitarias y extrauniversitarias.</p>
+                <div class="counter-display" id="counterDisplay">
+                    0
                 </div>
             </div>
         </section>
@@ -658,7 +652,7 @@
                 <div class="timeline-container right-timeline">
                     <div class="timeline-content">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">2010: Reconocimiento</h3>
-                        <p class="text-gray-600">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
+                        <p class="text-xl font-semibold text-gray-800 mb-2">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
                     </div>
                 </div>
                 <div class="timeline-container left-timeline">
@@ -831,7 +825,7 @@
             };
 
             // Secciones en las que la imagen flotante debe ser visible
-            const sectionsForFloatingImageVisibility = ['nosotros', 'servicios', 'galeria', 'our-history-images', 'timeline-section'];
+            const sectionsForFloatingImageVisibility = ['servicios', 'galeria', 'our-history-images', 'timeline-section'];
 
             const observer = new IntersectionObserver((entries) => {
                 let anyVisibleFloatingImageSection = false;
@@ -866,15 +860,48 @@
             });
 
             // Inicialmente, ocultar la imagen si la sección de inicio es la primera visible.
-            // Esto asegura que la imagen no aparezca hasta la sección "Aulas Universitarias".
+            // Esto asegura que la imagen no aparezca hasta la sección "Ciencias".
             const initialCheckObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.target.id === 'inicio') {
+                    if (entry.isIntersecting && (entry.target.id === 'inicio' || entry.target.id === 'nosotros')) {
                         floatingImage.classList.add('fade-out');
                     }
                 });
             }, { threshold: 0.1 });
             initialCheckObserver.observe(document.getElementById('inicio'));
+            initialCheckObserver.observe(document.getElementById('nosotros'));
+
+            // Counter animation logic
+            const counterElement = document.getElementById('counterDisplay');
+            let hasAnimated = false; // Flag to ensure animation runs only once
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        animateCounter(counterElement, 100, ' +', ' OBRAS EDITADAS');
+                        hasAnimated = true; // Set flag to true after animation starts
+                        counterObserver.unobserve(entry.target); // Stop observing after animation
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+            counterObserver.observe(counterElement);
+
+            function animateCounter(element, target, prefix = '', suffix = '') {
+                let current = 0;
+                const duration = 2000; // 2 seconds
+                const stepTime = 10; // milliseconds
+                const increment = target / (duration / stepTime);
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    element.textContent = prefix + Math.floor(current) + suffix;
+                }, stepTime);
+            }
         });
     </script>
 </body>
