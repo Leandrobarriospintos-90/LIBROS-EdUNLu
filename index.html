@@ -483,6 +483,59 @@
             background-color: #FFFFFF;
         }
 
+        /* New section specific styles */
+        #mission-statement {
+            background-color: #ADFF2F; /* Color de fondo actualizado a #ADFF2F */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 80px 2rem; /* Add some padding */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #mission-statement p {
+            max-width: 800px; /* Limit width for readability */
+            font-size: 1.5rem; /* Larger font size */
+            line-height: 1.8;
+            margin: 0 auto;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        }
+        @media (max-width: 768px) {
+            #mission-statement p {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Video section styles */
+        #video-section {
+            background-color: #333; /* Dark background for video section */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* Remove padding as video will take full width */
+            box-sizing: border-box;
+            overflow: hidden; /* Ensure no overflow */
+        }
+
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
@@ -558,6 +611,13 @@
                  onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
 
     <main>
+        <!-- Nueva Sección de Video -->
+        <section id="video-section">
+            <div class="video-responsive">
+                <iframe src="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+
         <section id="inicio" class="section">
             <div class="content-wrapper">
                 <!-- Contador en el centro -->
@@ -604,7 +664,6 @@
 
         <!-- Nueva sección: Nuestra Historia en Imágenes (Carrusel de fotografías) -->
         <section id="our-history-images" class="section flex-col text-center justify-center p-8">
-            <h2 class="text-4xl font-bold mb-8 text-gray-900">Nuestra Historia en Imágenes</h2>
             <div class="carousel-container" id="historyCarousel">
                 <!-- Carousel Items (example images, replace with your actual history images) -->
                 <div class="carousel-item active">
@@ -663,6 +722,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección de Misión -->
+    <section id="mission-statement" class="py-16 bg-[#ADFF2F] text-white text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-2xl leading-relaxed">
+                Seguimos trabajando con compromiso para contribuir al desarrollo del conocimiento, la educación pública y la construcción colectiva de una sociedad más justa y reflexiva, a través de nuestras publicaciones.
+            </p>
         </div>
     </section>
 
@@ -811,7 +879,7 @@
 
 
             // JavaScript para el cambio de fondo y la imagen flotante
-            const sections = document.querySelectorAll('main .section, #timeline-section'); // Incluye la sección de línea de tiempo
+            const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section'); // Incluye la nueva sección de video
             const floatingImage = document.getElementById('floating-image');
             const body = document.body;
 
@@ -822,11 +890,13 @@
                 'servicios': '#FF0000',
                 'galeria': '#ffc300',
                 'our-history-images': '#FFFFFF', // Color para la nueva sección de carrusel (blanco)
-                'timeline-section': '#FFFFFF' // La sección de línea de tiempo es blanca
+                'timeline-section': '#FFFFFF', // La sección de línea de tiempo es blanca
+                'mission-statement': '#ADFF2F', // Color para la nueva sección de misión
+                'video-section': '#333333' // Color para la sección de video
             };
 
             // Secciones en las que la imagen flotante debe ser visible
-            const sectionsForFloatingImageVisibility = ['servicios', 'galeria', 'our-history-images', 'timeline-section'];
+            const sectionsForFloatingImageVisibility = ['servicios', 'galeria', 'our-history-images', 'timeline-section', 'mission-statement'];
 
             const observer = new IntersectionObserver((entries) => {
                 let anyVisibleFloatingImageSection = false;
@@ -864,13 +934,14 @@
             // Esto asegura que la imagen no aparezca hasta la sección "Ciencias".
             const initialCheckObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && (entry.target.id === 'inicio' || entry.target.id === 'nosotros')) {
+                    if (entry.isIntersecting && (entry.target.id === 'inicio' || entry.target.id === 'nosotros' || entry.target.id === 'video-section')) {
                         floatingImage.classList.add('fade-out');
                     }
                 });
             }, { threshold: 0.1 });
             initialCheckObserver.observe(document.getElementById('inicio'));
             initialCheckObserver.observe(document.getElementById('nosotros'));
+            initialCheckObserver.observe(document.getElementById('video-section'));
 
             // Counter animation logic
             const counterElement = document.getElementById('counterDisplay');
