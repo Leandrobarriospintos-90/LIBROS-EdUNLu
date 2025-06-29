@@ -313,16 +313,15 @@
             text-align: center; /* Asegura que el texto dentro esté centrado */
         }
         
-        .text-left, .text-right {
+        .text-left {
             flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
             padding: 2rem;
-        }
-        
-        .text-left {
-            text-align: right;
+            text-align: left; /* Alineación del texto a la izquierda */
         }
 
         .text-right {
+            flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
+            padding: 2rem;
             text-align: right; /* Alineación del texto a la derecha */
         }
 
@@ -331,6 +330,7 @@
             font-weight: bold;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
             margin: 0;
+            line-height: 1.2; /* Reducido el interlineado para los títulos */
             color: #fff; /* Texto blanco para los títulos de sección */
         }
 
@@ -353,8 +353,8 @@
             text-align: center; /* Centrar el texto dentro del contador */
         }
 
-        /* Responsive adjustments for counter */
-        @media (max-width: 768px) {
+        /* Responsive adjustments for collections text */
+        @media (max-width: 750px) { /* Ajustado a 750px como se solicitó */
             .counter-display {
                 font-size: 3rem;
                 margin-top: 1rem; /* Space from stacked text */
@@ -368,8 +368,24 @@
 
             .text-left, .text-right {
                 flex-basis: auto; /* Ancho automático */
-                text-align: center;
+                text-align: center; /* Centrar el texto para móviles */
                 padding: 1rem;
+            }
+
+            .section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+            }
+
+            #floating-image {
+                width: 180px;
+                height: 180px;
+                max-width: 45vw;
+                max-height: 45vh;
             }
         }
 
@@ -467,24 +483,6 @@
             background-color: #FFFFFF;
         }
 
-        /* --- AJUSTES PARA DISPOSITIVOS MÓVILES (NUEVOS ESTILOS) --- */
-        @media (max-width: 768px) {
-            .section h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .section p {
-                font-size: 1rem;
-            }
-
-            #floating-image {
-                width: 180px;
-                height: 180px;
-                max-width: 45vw;
-                max-height: 45vh;
-            }
-        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
@@ -574,9 +572,9 @@
         <section id="nosotros" class="section">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Aulas Universitarias</h1>
+                    <h1>Colección Aulas Universitarias</h1>
                 </div>
-                <div class="text-right">
+                <div class="text-left">
                     <p>Textos esenciales para la formación académica y el desarrollo profesional en diversas disciplinas. Son libros científicos creados como material de enseñanza para estudiantes, cuyo contenido también puede ser aprovechado por alumnos de otras instituciones de educación superior.</p>
                 </div>
             </div>
@@ -585,9 +583,9 @@
         <section id="servicios" class="section">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Ciencias</h1>
+                    <h1>Colección Ciencias</h1>
                 </div>
-                <div class="text-right">
+                <div class="text-left">
                     <p>Investigaciones de vanguardia y divulgación científica en campos como la biología, física y química. Son libros científicos que resultan de la actividad de investigación, los debates y del intercambio académico. Es una herramienta central para concretar el aporte científico de la universidad.</p>
                 </div>
             </div>
@@ -596,9 +594,9 @@
         <section id="galeria" class="section">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Sociedad en Movimiento</h1>
+                    <h1>Colección Sociedad en Movimiento</h1>
                 </div>
-                <div class="text-right">
+                <div class="text-left">
                     <p>Obras que analizan y reflexionan sobre los cambios sociales, culturales y políticos contemporáneos. Incluye textos literarios y materiales de divulgación del patrimonio cultural e institucional.</p>
                 </div>
             </div>
