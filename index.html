@@ -1105,7 +1105,7 @@
             const counterObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        animateCounter(counterElement, 100, ' +', ' OBRAS EDITADAS');
+                        animateCounter(counterElement, 100, ' +', ' OBRAS PUBLICADAS');
                         hasAnimated = true; // Set flag to true after animation starts
                         counterObserver.unobserve(entry.target); // Stop observing after animation
                     }
