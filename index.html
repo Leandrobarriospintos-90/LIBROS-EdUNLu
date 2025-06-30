@@ -195,7 +195,7 @@
             height: 25px;
             right: -17px;
             background-color: #cbd5e1; /* Tailwind gray-300 */
-            border: 4px solid #4299e1; /* Tailwind blue-500 */
+            border: 4px solid #0da353; /* Changed to green! */
             top: 15px;
             border-radius: 50%;
             z-index: 1;
@@ -548,18 +548,18 @@
             z-index: 99; /* High z-index to be on top */
             border: none; /* No border */
             outline: none; /* No outline */
-            background-color: #0da353; /* Green background */
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% transparency */
             color: white; /* White text/icon */
             cursor: pointer; /* Pointer cursor on hover */
             padding: 15px; /* Some padding */
-            border-radius: 50%; /* Circular shape */
+            border-radius: 0; /* Square shape (removed border-radius: 50%) */
             font-size: 22px; /* Icon size */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
             transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
         }
 
         #scroll-to-top-btn:hover {
-            background-color: #0a7d40; /* Darker green on hover */
+            background-color: rgba(0, 0, 0, 0.7); /* Darker black on hover (70% transparency) */
             transform: scale(1.05); /* Slightly enlarge on hover */
         }
 
@@ -573,6 +573,70 @@
             }
         }
 
+        /* Hamburger menu styles */
+        .hamburger-menu-button {
+            display: none; /* Hidden by default */
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            z-index: 40; /* Ensure it's above other header elements */
+        }
+
+        .mobile-nav-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 35; /* Above header but below floating image */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none; /* Prevents interaction when hidden */
+        }
+
+        .mobile-nav-container.open {
+            display: flex;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-container ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-nav-container ul li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-nav-container ul li a {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-container ul li a:hover {
+            color: #0da353; /* Green on hover */
+        }
+
+        @media (max-width: 700px) {
+            .hamburger-menu-button {
+                display: block; /* Show hamburger on small screens */
+            }
+            header nav {
+                display: none; /* Hide desktop nav on small screens */
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
@@ -586,7 +650,8 @@
                      class="h-10 w-auto"> <!-- Tailwind classes for height and auto width -->
             </a>
         </div>
-        <nav>
+        <!-- Desktop Navigation -->
+        <nav id="desktop-nav">
             <ul class="flex space-x-4">
                 <li><a href="#video-section" class="text-gray-600 hover:text-blue-600 transition duration-300">10 AÑOS</a></li>
                 <li><a href="#inicio" class="text-gray-600 hover:text-blue-600 transition duration-300">Colecciones</a></li>
@@ -594,7 +659,21 @@
                 <li><a href="#cta-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Catálogo</a></li>
             </ul>
         </nav>
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger-menu-button" id="hamburger-button" aria-label="Toggle navigation">
+            &#9776; <!-- Unicode for hamburger icon -->
+        </button>
     </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-container" id="mobile-nav-container">
+        <ul id="mobile-nav-links">
+            <li><a href="#video-section">10 AÑOS</a></li>
+            <li><a href="#inicio">Colecciones</a></li>
+            <li><a href="#timeline-section">Historia</a></li>
+            <li><a href="#cta-section">Catálogo</a></li>
+        </ul>
+    </div>
 
     <!-- Main Banner Section with 3D Slider -->
     <div class="banner">
@@ -734,32 +813,33 @@
             <div class="timeline">
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">1975: Fundación</h3>
-                        <p class="text-gray-600">Creación de la Editorial Universitaria, con el objetivo de difundir el conocimiento académico.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2014: Creación</h3>
+                        <p class="text-gray-600">Se aprueba el Reglamento de Funcionamiento de la Editorial EdUNLu.</p>
                     </div>
                 </div>
                 <div class="timeline-container right-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">1985: Primera Colección</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2015: Primera Colección</h3>
                         <p class="text-gray-600">Lanzamiento de la "Colección Aulas Universitarias", un pilar fundamental para la enseñanza.</p>
                     </div>
+                    
                 </div>
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">1998: Expansión Digital</h3>
-                        <p class="text-gray-600">Inicio de la digitalización de nuestro catálogo, ampliando el acceso a nuestras publicaciones.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2018: Expansión Digital</h3>
+                        <p class="text-gray-600">Creamos nuestro sitio web y ampliamos nuestra presencia en redes sociales para facilitar el acceso a nuestras publicaciones y fortalecer el vínculo con la comunidad.</p>
                     </div>
                 </div>
                 <div class="timeline-container right-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2010: Reconocimiento</h3>
-                        <p class="text-xl font-semibold text-gray-800 mb-2">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2020: Reconocimiento</h3>
+                        <p class="text-gray-600"">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
                     </div>
                 </div>
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2025: 50 Aniversario</h3>
-                        <p class="text-gray-600">Celebramos medio siglo de trayectoria, consolidando nuestro compromiso con el saber.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2025: 10 Aniversario</h3>
+                        <p class="text-gray-600">Celebramos una decada de trayectoria, consolidando nuestro compromiso con el saber.</p>
                     </div>
                 </div>
             </div>
@@ -777,45 +857,31 @@
 
     <!-- Sección de Llamada a la Acción -->
     <section id="cta-section" class="py-12 bg-gray-200 text-center">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestro catálogo completo?</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestro catálogo?</h2>
         <a href="https://example.com/catalogo.pdf" target="_blank" class="inline-block bg-green-600 text-white text-xl font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition duration-300">
             Ver catálogo completo
         </a>
     </section>
 
     <!-- Pie de Página (Footer) -->
-    <footer id="footer-section" class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Información Institucional -->
-            <div class="col-span-1">
-                <h3 class="text-xl font-semibold mb-4">Editorial Universitaria</h3>
-                <p class="text-gray-400 text-sm">
-                    Comprometidos con la difusión del conocimiento y la cultura universitaria desde 1975.
-                </p>
-                <p class="text-gray-400 text-sm mt-2">
-                    Todos los derechos reservados &copy; 2025
-                </p>
+    <footer id="footer-section" class="bg-gray-800 text-white py-12 text-center">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold mb-6">¡Sumate y seguinos en nuestras redes!</h3>
+            <div class="flex justify-center space-x-4">
+                <a href="https://facebook.com/editorialuniversitaria" target="_blank" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+                    Facebook
+                </a>
+                <a href="https://instagram.com/editorialuniversitaria" target="_blank" class="inline-block bg-pink-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-pink-700 transition duration-300">
+                    Instagram
+                </a>
+                <!-- Nuevo botón para YouTube -->
+                <a href="https://www.youtube.com/channel/YOUR_YOUTUBE_CHANNEL_ID" target="_blank" class="inline-block bg-red-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-red-700 transition duration-300">
+                    YouTube
+                </a>
             </div>
-
-            <!-- Redes Sociales -->
-            <div class="col-span-1">
-                <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
-                <ul class="flex space-x-4">
-                    <li><a href="https://facebook.com/editorialuniversitaria" target="_blank" class="text-gray-400 hover:text-white transition duration-300">Facebook</a></li>
-                    <li><a href="https://twitter.com/editorialuni" target="_blank" class="text-gray-400 hover:text-white transition duration-300">Twitter</a></li>
-                    <li><a href="https://instagram.com/editorialuniversitaria" target="_blank" class="text-gray-400 hover:text-white transition duration-300">Instagram</a></li>
-                    <li><a href="https://linkedin.com/company/editorialuniversitaria" target="_blank" class="text-gray-400 hover:text-white transition duration-300">LinkedIn</a></li>
-                </ul>
-            </div>
-
-            <!-- Contacto -->
-            <div class="col-span-1">
-                <h3 class="text-xl font-semibold mb-4">Contacto</h3>
-                <p class="text-gray-400 text-sm">Email: info@editorialuniversitaria.com</p>
-                <p class="text-400 text-sm">Dirección: Calle Ficticia 123, Ciudad Universitaria</p>
-                <p class="text-gray-400 text-sm">Teléfono: +54 9 11 1234 5678</p>
-                <p class="text-gray-400 text-sm mt-2"><a href="https://www.editorialuniversitaria.com" target="_blank" class="hover:underline">www.editorialuniversitaria.com</a></p>
-            </div>
+            <p class="text-gray-400 text-sm mt-8">
+                &copy; 2025
+            </p>
         </div>
     </footer>
 
@@ -1079,6 +1145,29 @@
             // When the user clicks on the button, scroll to the top of the document
             scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Hamburger menu logic
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileNavContainer = document.getElementById('mobile-nav-container');
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+
+            hamburgerButton.addEventListener('click', () => {
+                mobileNavContainer.classList.toggle('open');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileNavLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNavContainer.classList.remove('open');
+                });
+            });
+
+            // Close mobile menu when clicking outside of it (but not on the button)
+            document.addEventListener('click', (event) => {
+                if (!mobileNavContainer.contains(event.target) && !hamburgerButton.contains(event.target) && mobileNavContainer.classList.contains('open')) {
+                    mobileNavContainer.classList.remove('open');
+                }
             });
         });
     </script>
