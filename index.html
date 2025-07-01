@@ -433,81 +433,47 @@
             }
         }
 
-        /* Carousel specific styles */
-        .carousel-container {
-            position: relative;
-            width: 80%; /* Adjust as needed */
-            max-width: 900px;
-            height: 500px; /* Fixed height for the carousel */
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* New styles for the photo wall */
+        .photo-wall {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
+            gap: 0; /* No margin between images */
+            width: 100%; /* Full width of its parent */
+            padding: 0; /* No padding for the photo wall itself */
         }
 
-        .carousel-item {
+        .photo-wall img {
             width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #333; /* Fallback for images */
+            height: 250px; /* Increased height for images in the grid */
+            object-fit: cover; /* Crop images to fit */
+            border-radius: 0; /* Remove rounded corners for a seamless look */
+            box-shadow: none; /* Remove shadow for a seamless look */
+            transition: none; /* Remove transition for a seamless wall */
         }
 
-        .carousel-item.active {
-            opacity: 1;
+        .photo-wall img:hover {
+            transform: none; /* Remove hover effect */
+            box-shadow: none; /* Remove hover effect */
         }
 
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures image covers the area, cropping if necessary */
-            border-radius: 12px;
-        }
-
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: transparent; /* Removed circular background */
-            color: white;
-            border: none;
-            padding: 10px; /* Adjusted padding */
-            cursor: pointer;
-            z-index: 10;
-            font-size: 1.5rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .carousel-button:hover {
-            background-color: rgba(0, 0, 0, 0.3); /* Slightly visible on hover */
-        }
-
-        .carousel-button.prev {
-            left: 10px;
-        }
-
-        .carousel-button.next {
-            right: 10px;
-        }
-
-        /* Responsive adjustments for carousel */
-        @media (max-width: 768px) {
-            .carousel-container {
-                width: 95%;
-                height: 350px; /* Adjust height for smaller screens */
+        /* Responsive adjustments for photo wall */
+        @media (max-width: 1024px) { /* Adjust for tablets */
+            .photo-wall {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+                gap: 0; /* No margin */
             }
-            .carousel-button {
-                padding: 10px;
-                font-size: 1.2rem;
+            .photo-wall img {
+                height: 200px; /* Adjusted height for tablets */
+            }
+        }
+
+        @media (max-width: 768px) { /* Adjust for mobile */
+            .photo-wall {
+                grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
+                gap: 0; /* No margin */
+            }
+            .photo-wall img {
+                height: 180px; /* Adjusted height for mobile */
             }
         }
 
@@ -520,6 +486,8 @@
         #our-history-images {
             background-color: #FFFFFF; /* Cambiado a blanco para esta sección */
             color: #2F4F4F; /* Ajusta el color del texto para que contraste con el blanco */
+            padding: 0; /* Eliminar padding para que el muro de fotos ocupe todo el ancho */
+            min-height: 100vh; /* Allow section to grow */
         }
         
         /* Ensure timeline section background is white */
@@ -840,26 +808,19 @@
             </div>
         </section>
 
-        <!-- Nueva sección: Nuestra Historia en Imágenes (Carrusel de fotografías) -->
-        <section id="our-history-images" class="section flex-col text-center justify-center p-8">
-            <div class="carousel-container" id="historyCarousel">
-                <!-- Carousel Items (example images, replace with your actual history images) -->
-                <div class="carousel-item active">
-                    <img src="https://placehold.co/900x500/ADD8E6/000000?text=Fundacion+Editorial" alt="Fundación Editorial">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://placehold.co/900x500/90EE90/000000?text=Primeras+Publicaciones" alt="Primeras Publicaciones">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://placehold.co/900x500/FFD700/000000?text=Eventos+y+Ferias" alt="Eventos y Ferias del Libro">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://placehold.co/900x500/DDA0DD/000000?text=Aniversario+Especial" alt="Celebración de Aniversario">
-                </div>
-                
-                <!-- Navigation Buttons -->
-                <button class="carousel-button prev" aria-label="Previous image">&#10094;</button>
-                <button class="carousel-button next" aria-label="Next image">&#10095;</button>
+        <!-- Nueva sección: Nuestra Historia en Imágenes (Muro de fotografías) -->
+        <section id="our-history-images" class="section flex-col text-center justify-center">
+            <!-- Título eliminado según la solicitud del usuario -->
+            <div class="photo-wall">
+                <img src="https://placehold.co/400x300/ADD8E6/000000?text=Foto+Historia+1" alt="Foto de la historia 1" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/90EE90/000000?text=Foto+Historia+2" alt="Foto de la historia 2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/FFD700/000000?text=Foto+Historia+3" alt="Foto de la historia 3" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/DDA0DD/000000?text=Foto+Historia+4" alt="Foto de la historia 4" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/FFA07A/000000?text=Foto+Historia+5" alt="Foto de la historia 5" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/87CEEB/000000?text=Foto+Historia+6" alt="Foto de la historia 6" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/FFC0CB/000000?text=Foto+Historia+7" alt="Foto de la historia 7" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/ADD8E6/000000?text=Foto+Historia+8" alt="Foto de la historia 8" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
+                <img src="https://placehold.co/400x300/90EE90/000000?text=Foto+Historia+9" alt="Foto de la historia 9" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
             </div>
         </section>
     </main>
@@ -924,19 +885,8 @@
     <!-- Pie de Página (Footer) -->
     <footer id="footer-section" class="bg-gray-800 text-white py-12 text-center">
         <div class="container mx-auto px-4">
-            <h3 class="text-2xl font-bold mb-6">¡Sumate y seguinos en nuestras redes!</h3>
-            <div class="flex justify-center space-x-4">
-                <a href="https://facebook.com/editorialuniversitaria" target="_blank" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
-                    Facebook
-                </a>
-                <a href="https://instagram.com/editorialuniversitaria" target="_blank" class="inline-block bg-pink-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-pink-700 transition duration-300">
-                    Instagram
-                </a>
-                <!-- Nuevo botón para YouTube -->
-                <a href="https://www.youtube.com/channel/YOUR_YOUTUBE_CHANNEL_ID" target="_blank" class="inline-block bg-red-600 text-white text-lg font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-red-700 transition duration-300">
-                    YouTube
-                </a>
-            </div>
+            <!-- Título "¡Sumate y seguinos en nuestras redes!" eliminado -->
+            <!-- Enlaces de redes sociales eliminados -->
             <p class="text-gray-400 text-sm mt-8">
                 &copy; 2025
             </p>
@@ -1040,35 +990,6 @@
                     }
                 });
             }
-
-            // JavaScript para el carrusel de imágenes
-            const carouselItems = document.querySelectorAll('#historyCarousel .carousel-item');
-            const prevButton = document.querySelector('#historyCarousel .carousel-button.prev');
-            const nextButton = document.querySelector('#historyCarousel .carousel-button.next');
-            let currentCarouselIndex = 0;
-
-            function showCarouselItem(index) {
-                carouselItems.forEach((item, i) => {
-                    item.classList.remove('active');
-                    if (i === index) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-
-            prevButton.addEventListener('click', () => {
-                currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
-                showCarouselItem(currentCarouselIndex);
-            });
-
-            nextButton.addEventListener('click', () => {
-                currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
-                showCarouselItem(currentCarouselIndex);
-            });
-
-            // Inicializar el carrusel para mostrar el primer elemento
-            showCarouselItem(currentCarouselIndex);
-
 
             // JavaScript para el cambio de fondo y la imagen flotante
             const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
