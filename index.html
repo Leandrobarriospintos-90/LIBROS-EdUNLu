@@ -328,14 +328,35 @@
             text-align: right; /* Alineación del texto a la derecha */
         }
 
-        /* Styles for the new image in the content-wrapper */
-        .content-wrapper .collection-image {
-            width: 250px; /* Fixed width for the image */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: contain;
-            margin: 0 2rem; /* Add some horizontal margin */
-            flex-shrink: 0; /* Prevent it from shrinking */
-            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow */ /* REMOVED */
+        /* Styles for the new collection carousels */
+        .carousel-container-collection {
+            width: 250px; /* Fixed width for the carousel */
+            height: 350px; /* Fixed height for the carousel */
+            overflow: hidden;
+            margin: 0 2rem;
+            flex-shrink: 0;
+            border-radius: 8px;
+            /* No box-shadow as requested */
+        }
+
+        .carousel-track-collection {
+            display: flex;
+            white-space: nowrap; /* Keep items in a single line */
+            height: 100%; /* Ensure track takes full height of container */
+        }
+
+        .carousel-item-collection {
+            flex: 0 0 auto; /* Prevent items from shrinking or growing */
+            width: 250px; /* Each item takes the container width */
+            height: 100%; /* Ensure item takes full height */
+            display: inline-block; /* For older browser compatibility with white-space: nowrap */
+        }
+
+        .carousel-item-collection img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures image covers the area, cropping if necessary */
+            border-radius: 8px;
         }
 
 
@@ -386,9 +407,13 @@
                 padding: 1rem;
             }
 
-            .content-wrapper .collection-image {
-                width: 180px; /* Smaller image on mobile */
+            .carousel-container-collection {
+                width: 180px; /* Smaller carousel on mobile */
+                height: 250px; /* Adjust height for mobile */
                 margin: 1rem 0; /* Adjust margin for stacking */
+            }
+            .carousel-item-collection {
+                width: 180px; /* Adjust item width for mobile */
             }
 
             .section h1 {
@@ -750,7 +775,7 @@
         <section id="video-section">
             <div class="video-responsive">
                 <!-- ID para el reproductor de YouTube API -->
-<iframe width="100%" height="100%" src="https://www.youtube.com/embed/9W9kI2wLdjQ?si=LhCZXRdVMhbQOyVV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe id="youtube-player" width="100%" height="100%" src="https://www.youtube.com/embed/9W9kI2wLdjQ?enablejsapi=1&version=3&playerapiid=ytplayer&controls=0&showinfo=0&rel=0&loop=1&playlist=9W9kI2wLdjQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -770,10 +795,12 @@
                 <div class="text-left">
                     <h1>Colección Aulas Universitarias</h1>
                 </div>
-                <!-- Imagen de ejemplo para Colección Aulas Universitarias -->
-                <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-02-optimiza-aulas.png" 
-                     alt="Ejemplo de libro de Aulas Universitarias" 
-                     class="collection-image">
+                <!-- Carrusel para Colección Aulas Universitarias -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="aulasCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
                 <div class="text-left">
                     <p>Textos esenciales para la formación académica y el desarrollo profesional en diversas disciplinas. Son libros científicos creados como material de enseñanza para estudiantes, cuyo contenido también puede ser aprovechado por alumnos de otras instituciones de educación superior.</p>
                 </div>
@@ -785,10 +812,12 @@
                 <div class="text-left">
                     <h1>Colección Ciencias</h1>
                 </div>
-                <!-- Imagen de ejemplo para Colección Ciencias -->
-                <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-01-alero-ciencias.png" 
-                     alt="Ejemplo de libro de Ciencias" 
-                     class="collection-image">
+                <!-- Carrusel para Colección Ciencias -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="cienciasCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
                 <div class="text-left">
                     <p>Investigaciones de vanguardia y divulgación científica en campos como la biología, física y química. Son libros científicos que resultan de la actividad de investigación, los debates y del intercambio académico. Es una herramienta central para concretar el aporte científico de la universidad.</p>
                 </div>
@@ -800,10 +829,12 @@
                 <div class="text-left">
                     <h1>Colección Sociedad en Movimiento</h1>
                 </div>
-                <!-- Imagen de ejemplo para Colección Sociedad en Movimiento -->
-                <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-03-esas%20cosas-sociedad.png" 
-                     alt="Ejemplo de libro de Sociedad en Movimiento" 
-                     class="collection-image">
+                <!-- Carrusel para Colección Sociedad en Movimiento -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="sociedadCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
                 <div class="text-left">
                     <p>Obras que analizan y reflexionan sobre los cambios sociales, culturales y políticos contemporáneos. Incluye textos literarios y materiales de divulgación del patrimonio cultural e institucional.</p>
                 </div>
@@ -1197,6 +1228,63 @@
                     mobileNavContainer.classList.remove('open');
                 }
             });
+
+            // Function to create and populate a carousel for collections
+            function setupCollectionCarousel(trackId, imageUrls, numImages = 10, animationDuration = 20) {
+                const track = document.getElementById(trackId);
+                if (!track) return;
+
+                let imagesToUse = [];
+                // Repeat images to fill numImages
+                for (let i = 0; i < numImages; i++) {
+                    imagesToUse.push(imageUrls[i % imageUrls.length]);
+                }
+
+                // Duplicate images for seamless looping (at least one full set)
+                imagesToUse = imagesToUse.concat(imagesToUse); 
+
+                track.innerHTML = ''; // Clear existing content
+                imagesToUse.forEach(url => {
+                    const item = document.createElement('div');
+                    item.classList.add('carousel-item-collection');
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = 'Ejemplo de libro'; // Generic alt text
+                    // Add onerror for fallback image
+                    img.onerror = function() { this.onerror=null; this.src='https://placehold.co/250x350/CCCCCC/FFFFFF/png?text=Error'; };
+                    item.appendChild(img);
+                    track.appendChild(item);
+                });
+
+                // Calculate the width for the animation dynamically based on the first item's width
+                // This assumes all images have the same width as defined in CSS for .carousel-item-collection
+                // and that the first item exists.
+                const singleItemWidth = track.querySelector('.carousel-item-collection')?.offsetWidth || 250; 
+                const totalOriginalWidth = numImages * singleItemWidth;
+
+                // Create a dynamic stylesheet to update the animation
+                const styleId = `scrollRightToLeft-${trackId}-style`;
+                let styleSheet = document.getElementById(styleId);
+                if (!styleSheet) {
+                    styleSheet = document.createElement("style");
+                    styleSheet.id = styleId;
+                    document.head.appendChild(styleSheet);
+                }
+                styleSheet.innerText = `
+                    @keyframes scrollRightToLeft-${trackId} {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(-${totalOriginalWidth}px); }
+                    }
+                    #${trackId} {
+                        animation: scrollRightToLeft-${trackId} ${animationDuration}s linear infinite;
+                    }
+                `;
+            }
+
+            // Call the function for each carousel with the specified image URLs
+            setupCollectionCarousel('aulasCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-02-optimiza-aulas.png"], 10, 20);
+            setupCollectionCarousel('cienciasCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-01-alero-ciencias.png"], 10, 20);
+            setupCollectionCarousel('sociedadCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-03-esas%20cosas-sociedad.png"], 10, 20);
         });
     </script>
 </body>
