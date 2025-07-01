@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversario Editorial Universitaria</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- YouTube Iframe Player API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <style>
+        /* --- ESTILOS GENERALES Y RESETEO --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif; /* Usando Inter como base para todo el body */
+            color: #fff;
+            background-color: #0da353; /* Color de fondo inicial para la sección de inicio */
+            overflow-x: hidden; /* Evita el scroll horizontal */
+            overscroll-behavior-y: none; /* Evita el efecto "rebote" al final del scroll */
+            transition: background-color 0.8s ease; /* Transición suave para el cambio de color de fondo */
+        }
+
+        /* Custom CSS for 3D Slider effect - preserving original logic */
+        .banner {
+            width: 100%;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(to bottom, #FFFFFF, #F0FFF0); /* Gradient background updated */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner .slider {
+            position: absolute;
+            width: 200px; /* Base width of each book cover */
+            height: 280px; /* Base height of each book cover */
+            top: 15%; /* Adjusted for better vertical centering */
+            left: calc(50% - 100px); /* Center horizontally */
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            animation: autoRun 20s linear infinite; /* Animation for automatic rotation */
+            z-index: 20; /* Aumentado el z-index para que el slider esté por encima del logo */
+        }
+
+        @keyframes autoRun {
+            from {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+            }
+            to {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+            }
+        }
+
+        .banner .slider .item {
+            position: absolute;
+            inset: 0 0 0 0;
+            /* Calculates position and depth for 3D effect based on CSS variables */
+            transform:
+                rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+                translateZ(550px); /* Distance from the center of the circle */
+            border-radius: 8px; /* Rounded corners for book covers */
+            overflow: hidden; /* Ensure image doesn't spill out */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+            transition: transform 0.5s ease-out; /* Smooth transition for potential future interactions */
+        }
+
+        .banner .slider .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures images cover the item area */
+            border-radius: 8px; /* Apply rounded corners to images too */
+            transition: opacity 0.5s ease-in-out; /* Added for smooth transitions */
+        }
+
+        .banner .content {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1400px, 100vw);
+            height: max-content;
+            padding-bottom: 80px; /* Space from bottom */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .banner .content .author-info {
+            text-align: right;
+            max-width: 250px;
+            padding-right: 20px;
+        }
+
+        .banner .content .author-info h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .banner .content .author-info p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Responsive adjustments for banner */
+        @media screen and (max-width: 1023px) {
+            .banner .slider {
+                width: 160px;
+                height: 220px;
+                left: calc(50% - 80px);
+                top: 10%;
+            }
+            .banner .slider .item {
+                transform:
+                    rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+                    translateZ(300px);
+            }
+            .banner .content .author-info {
+                text-align: center;
+                max-width: unset;
+                width: 100%;
+                padding: 0 30px;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .banner {
+                height: 80vh;
+            }
+            .banner .slider {
+                width: 120px;
+                height: 180px;
+                left: calc(50% - 60px);
+                top: 8%;
+            }
+            .banner .slider .item {
+                transform:
+                    rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+                    translateZ(200px);
+            }
+            .banner .content {
+                padding-bottom: 40px;
+            }
+            .banner .content .author-info h2 {
+                font-size: 1.8em;
+            }
+            .banner .content .author-info p {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Timeline specific styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #e2e8f0; /* Tailwind gray-200 */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: #cbd5e1; /* Tailwind gray-300 */
+            border: 4px solid #0da353; /* Changed to green! */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left-timeline {
+            left: 0;
+        }
+
+        .right-timeline {
+            left: 50%;
+        }
+
+        .left-timeline::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .right-timeline::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        .right-timeline::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Media queries for timeline responsiveness */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-container::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .left-timeline::after, .right-timeline::after {
+                left: 15px;
+            }
+            .right-timeline {
+                left: 0%;
+            }
+        }
+
+        /* --- IMAGEN FLOTANTE (NUEVOS ESTILOS) --- */
+        #floating-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            max-width: 30vw;
+            max-height: 40vh;
+            object-fit: contain;
+            z-index: 1000;
+            transition: opacity 0.4s ease-in-out;
+            pointer-events: none; /* La imagen no interfiere con el ratón */
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        /* --- ESTRUCTURA DE SECCIONES Y CONTENIDO (NUEVOS ESTILOS) --- */
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between; /* Restaurado para espaciar text-left y text-right */
+            align-items: center;
+            width: 100%;
+            max-width: 1400px; /* Ancho máximo para el contenido */
+        }
+
+        /* Nueva regla para centrar el content-wrapper específicamente en la sección de inicio */
+        #inicio .content-wrapper {
+            flex-direction: column; /* Apila el contador y el nuevo texto */
+            justify-content: center; /* Centra horizontal y verticalmente el contenido */
+            text-align: center; /* Asegura que el texto dentro esté centrado */
+        }
+        
+        .text-left {
+            flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
+            padding: 2rem;
+            text-align: left; /* Alineación del texto a la izquierda */
+        }
+
+        .text-right {
+            flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
+            padding: 2rem;
+            text-align: right; /* Alineación del texto a la derecha */
+        }
+
+        /* Styles for the new collection carousels */
+        .carousel-container-collection {
+            width: 250px; /* Fixed width for the carousel */
+            height: 350px; /* Fixed height for the carousel */
+            overflow: hidden;
+            margin: 0 2rem;
+            flex-shrink: 0;
+            border-radius: 8px;
+            /* No box-shadow as requested */
+        }
+
+        .carousel-track-collection {
+            display: flex;
+            white-space: nowrap; /* Keep items in a single line */
+            height: 100%; /* Ensure track takes full height of container */
+        }
+
+        .carousel-item-collection {
+            flex: 0 0 auto; /* Prevent items from shrinking or growing */
+            width: 250px; /* Each item takes the container width */
+            height: 100%; /* Ensure item takes full height */
+            display: inline-block; /* For older browser compatibility with white-space: nowrap */
+        }
+
+        .carousel-item-collection img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures image covers the area, cropping if necessary */
+            border-radius: 8px;
+        }
+
+
+        .section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            margin: 0;
+            line-height: 1.2; /* Reducido el interlineado para los títulos */
+            color: #fff; /* Texto blanco para los títulos de sección */
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            margin: 0;
+            color: #fff; /* Texto blanco para los párrafos de sección */
+        }
+
+        /* Styles for the new counter */
+        .counter-display {
+            font-size: 5rem; /* Large font size for visibility */
+            font-weight: 800; /* Extra bold */
+            color: #fff; /* White color */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            margin: 0 2rem; /* Add some horizontal margin */
+            flex-shrink: 0; /* Prevent it from shrinking */
+            text-align: center; /* Centrar el texto dentro del contador */
+        }
+
+        /* Responsive adjustments for collections text */
+        @media (max-width: 750px) { /* Ajustado a 750px como se solicitó */
+            .counter-display {
+                font-size: 3rem;
+                margin-top: 1rem; /* Space from stacked text */
+                margin-bottom: 1rem;
+            }
+            .content-wrapper {
+                flex-direction: column; /* Stack elements vertically */
+                justify-content: center;
+                text-align: center;
+            }
+
+            .text-left, .text-right {
+                flex-basis: auto; /* Ancho automático */
+                text-align: center; /* Centrar el texto para móviles */
+                padding: 1rem;
+            }
+
+            .carousel-container-collection {
+                width: 180px; /* Smaller carousel on mobile */
+                height: 250px; /* Adjust height for mobile */
+                margin: 1rem 0; /* Adjust margin for stacking */
+            }
+            .carousel-item-collection {
+                width: 180px; /* Adjust item width for mobile */
+            }
+
+            .section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+            }
+
+            #floating-image {
+                width: 180px;
+                height: 180px;
+                max-width: 45vw;
+                max-height: 45vh;
+            }
+        }
+
+        /* New styles for the history carousel */
+        .carousel-container-history {
+            width: 100%; /* Full width of the section */
+            overflow: hidden;
+            margin: 0 auto; /* Center the carousel */
+            border-radius: 8px;
+            height: 300px; /* Fixed height for the history carousel */
+        }
+
+        .carousel-track-history {
+            display: flex;
+            white-space: nowrap;
+            height: 100%;
+        }
+
+        .carousel-item-history {
+            flex: 0 0 auto;
+            width: 400px; /* Width of each image in the history carousel */
+            height: 100%;
+            display: inline-block;
+        }
+
+        .carousel-item-history img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+            border-radius: 0; /* No rounded corners for seamless wall */
+        }
+
+        /* Responsive adjustments for history carousel */
+        @media (max-width: 1024px) {
+            .carousel-item-history {
+                width: 300px; /* Adjust width for tablets */
+            }
+            /* .carousel-container-history height is now fixed at 300px, no need to adjust here */
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item-history {
+                width: 100vw; /* Full viewport width for mobile */
+            }
+            /* .carousel-container-history height is now fixed at 300px, no need to adjust here */
+        }
+
+
+        /* --- COLORES DE FONDO PARA CADA SECCIÓN (NUEVOS ESTILOS) --- */
+        #inicio { background-color: #0da353; }
+        #nosotros { background-color: #006bcd; /* Azul para Aulas Universitarias */ }
+        #servicios { background-color: #FF0000; /* Rojo para Ciencias */ }
+        #galeria { background-color: #ffc300; /* Amarillo para Sociedad en Movimiento */ }
+        #our-history-images {
+            background-color: #FFFFFF; /* Cambiado a blanco para esta sección */
+            color: #2F4F4F; /* Ajusta el color del texto para que contraste con el blanco */
+            padding: 0; /* Eliminar padding para que el muro de fotos ocupe todo el ancho */
+            height: 300px; /* Altura fija para esta sección */
+            min-height: unset; /* Override previous min-height */
+        }
+        
+        /* Ensure timeline section background is white */
+        #timeline-section {
+            background-color: #FFFFFF;
+        }
+
+        /* New section specific styles */
+        #mission-statement {
+            background-color: #0da353; /* Color de fondo actualizado a #0da353 */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 80px 2rem; /* Add some padding */
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #mission-statement p {
+            max-width: 800px; /* Limit width for readability */
+            font-size: 1.5rem; /* Larger font size */
+            line-height: 1.8;
+            margin: 0 auto;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        }
+        @media (max-width: 768px) {
+            #mission-statement p {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Video section styles */
+        #video-section {
+            background-color: #333; /* Dark background for video section */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0; /* Remove padding as video will take full width */
+            box-sizing: border-box;
+            overflow: hidden; /* Ensure no overflow */
+        }
+
+        .video-responsive {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* New styles for the scroll-to-top button */
+        #scroll-to-top-btn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            bottom: 20px; /* 20px from the bottom */
+            right: 20px; /* 20px from the right */
+            z-index: 99; /* High z-index to be on top */
+            border: none; /* No border */
+            outline: none; /* No outline */
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% transparency */
+            color: white; /* White text/icon */
+            cursor: pointer; /* Pointer cursor on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 0; /* Square shape (removed border-radius: 50%) */
+            font-size: 22px; /* Icon size */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+        }
+
+        #scroll-to-top-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* Darker black on hover (70% transparency) */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Optional: adjust for smaller screens if needed */
+        @media (max-width: 600px) {
+            #scroll-to-top-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 12px;
+                font-size: 18px;
+            }
+        }
+
+        /* Hamburger menu styles */
+        .hamburger-menu-button {
+            display: none; /* Hidden by default */
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            z-index: 40; /* Ensure it's above other header elements */
+        }
+
+        .mobile-nav-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 35; /* Above header but below floating image */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none; /* Prevents interaction when hidden */
+        }
+
+        .mobile-nav-container.open {
+            display: flex;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-container ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-nav-container ul li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-nav-container ul li a {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-container ul li a:hover {
+            color: #0da353; /* Green on hover */
+        }
+
+        @media (max-width: 700px) {
+            .hamburger-menu-button {
+                display: block; /* Show hamburger on small screens */
+            }
+            header nav {
+                display: none; /* Hide desktop nav on small screens */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <!-- Header Section -->
+    <header class="w-full p-4 bg-white shadow-md flex justify-between items-center z-30 relative">
+        <div class="flex items-center space-x-2">
+            <!-- Replaced h1 with an img tag for the logo, now also a link to the top of the page -->
+            <a href="#">
+                <img src="https://leandrobarriospintos-90.github.io/LIBROS-EdUNLu/entradas/marca-completo-original-edunlu-svg.svg"
+                    alt="Logo Editorial Universitaria"
+                    class="h-10 w-auto"> <!-- Tailwind classes for height and auto width -->
+            </a>
+        </div>
+        <!-- Desktop Navigation -->
+        <nav id="desktop-nav">
+            <ul class="flex space-x-4">
+                <li><a href="#video-section" class="text-gray-600 hover:text-blue-600 transition duration-300">10 AÑOS</a></li>
+                <li><a href="#inicio" class="text-gray-600 hover:text-blue-600 transition duration-300">Colecciones</a></li>
+                <li><a href="#timeline-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Historia</a></li>
+                <li><a href="#cta-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Catálogo</a></li>
+            </ul>
+        </nav>
+        <!-- Hamburger Menu Button -->
+        <button class="hamburger-menu-button" id="hamburger-button" aria-label="Toggle navigation">
+            &#9776; <!-- Unicode for hamburger icon -->
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-container" id="mobile-nav-container">
+        <ul id="mobile-nav-links">
+            <li><a href="#video-section">10 AÑOS</a></li>
+            <li><a href="#inicio">Colecciones</a></li>
+            <li><a href="#timeline-section">Historia</a></li>
+            <li><a href="#cta-section">Catálogo</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Banner Section with 3D Slider -->
+    <div class="banner">
+        <!-- SVG Logo in the center of the covers -->
+        <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/aniversario-edunlu.png"
+            alt="Logo Editorial Universitaria"
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[21.6rem] h-[21.6rem] object-contain"
+            style="z-index: 10;"> <!-- Z-index ajustado para que el logo esté detrás del slider cuando las portadas están al frente -->
+
+        <!-- Content Area below the slider - only author info remains -->
+        <div class="content">
+            <div class="author-info flex flex-col items-center md:items-end">
+                <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
+                <p class="text-lg text-gray-500 mt-2">
+                    Impulsando el conocimiento, la cultura y el saber universitario.
+                </p>
+            </div>
+        </div>
+        <!-- 3D Slider Container -->
+        <div class="slider" id="bookSlider">
+            <!-- Book Cover Items (replace with your actual book cover images) -->
+            <!-- The '--position' CSS variable is crucial for the 3D rotation -->
+            <div class="item" style="--position: 1; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif" alt="Portada Libro 1">
+            </div>
+            <div class="item" style="--position: 2; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif" alt="Portada Libro 2">
+            </div>
+            <div class="item" style="--position: 3; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif" alt="Portada Libro 3">
+            </div>
+            <div class="item" style="--position: 4; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif" alt="Portada Libro 4">
+            </div>
+            <div class="item" style="--position: 5; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif" alt="Portada Libro 5">
+            </div>
+            <div class="item" style="--position: 6; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif" alt="Portada Libro 6">
+            </div>
+            <div class="item" style="--position: 7; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif" alt="Portada Libro 7">
+            </div>
+            <div class="item" style="--position: 8; --quantity: 8;">
+                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif" alt="Portada Libro 8">
+            </div>
+        </div>
+    </div>
+
+    <!-- La imagen flotante sigue siendo un único elemento global -->
+    <img id="floating-image"
+                src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
+                alt="Ilustración de la sección actual"
+                onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
+
+    <main>
+        <!-- Nueva Sección de Video -->
+        <section id="video-section">
+            <div class="video-responsive">
+                <!-- ID para el reproductor de YouTube API -->
+                <iframe id="youtube-player" width="100%" height="600" src="https://www.youtube.com/embed/9W9kI2wLdjQ?si=PnVLtp06i1G_45e3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="inicio" class="section">
+            <div class="content-wrapper">
+                <!-- Contador en el centro -->
+                <div class="counter-display" id="counterDisplay">
+                    0
+                </div>
+                <!-- Nuevo nivel de lectura: "Conocé nuestras colecciones" -->
+                <h2 class="text-3xl text-white font-semibold mt-4">Conocé nuestras colecciones</h2>
+            </div>
+        </section>
+
+        <section id="nosotros" class="section">
+            <div class="content-wrapper">
+                <div class="text-left">
+                    <h1>Colección Aulas Universitarias</h1>
+                </div>
+                <!-- Carrusel para Colección Aulas Universitarias -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="aulasCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
+                <div class="text-left">
+                    <p>Textos esenciales para la formación académica y el desarrollo profesional en diversas disciplinas. Son libros científicos creados como material de enseñanza para estudiantes, cuyo contenido también puede ser aprovechado por alumnos de otras instituciones de educación superior.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="section">
+            <div class="content-wrapper">
+                <div class="text-left">
+                    <h1>Colección Ciencias</h1>
+                </div>
+                <!-- Carrusel para Colección Ciencias -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="cienciasCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
+                <div class="text-left">
+                    <p>Investigaciones de vanguardia y divulgación científica en campos como la biología, física y química. Son libros científicos que resultan de la actividad de investigación, los debates y del intercambio académico. Es una herramienta central para concretar el aporte científico de la universidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="section">
+            <div class="content-wrapper">
+                <div class="text-left">
+                    <h1>Colección Sociedad en Movimiento</h1>
+                </div>
+                <!-- Carrusel para Colección Sociedad en Movimiento -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="sociedadCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
+                <div class="text-left">
+                    <p>Obras que analizan y reflexionan sobre los cambios sociales, culturales y políticos contemporáneos. Incluye textos literarios y materiales de divulgación del patrimonio cultural e institucional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nueva sección: Nuestra Historia en Imágenes (Muro de fotografías) -->
+        <section id="our-history-images" class="section flex-col text-center justify-center">
+            <div class="carousel-container-history">
+                <div class="carousel-track-history" id="historyCarouselTrack">
+                    <!-- Imágenes cargadas por JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sección de Cronología / Línea de Tiempo -->
+    <section class="py-16 bg-white" id="timeline-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Nuestra Historia</h2>
+            <div class="timeline">
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2014: Creación</h3>
+                        <p class="text-gray-600">Se aprueba el Reglamento de Funcionamiento de la Editorial EdUNLu.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2015: Primera Colección</h3>
+                        <p class="text-gray-600">Lanzamiento de la "Colección Aulas Universitarias", un pilar fundamental para la enseñanza.</p>
+                    </div>
+                    
+                </div>
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2018: Expansión Digital</h3>
+                        <p class="text-gray-600">Creamos nuestro sitio web y ampliamos nuestra presencia en redes sociales para facilitar el acceso a nuestras publicaciones y fortalecer el vínculo con la comunidad.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2020: Reconocimiento</h3>
+                        <p class="text-gray-600"">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
+                    </div>
+                </div>
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2025: 10 Aniversario</h3>
+                        <p class="text-gray-600">Celebramos una decada de trayectoria, consolidando nuestro compromiso con el saber.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección de Misión -->
+    <section id="mission-statement" class="py-16 bg-[#0da353] text-white text-center">
+        <div class="container mx-auto px-4">
+            <p class="text-2xl leading-relaxed">
+                Seguimos trabajando con compromiso para contribuir al desarrollo del conocimiento, la educación pública y la construcción colectiva de una sociedad más justa y reflexiva, a través de nuestras publicaciones.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección de Llamada a la Acción -->
+    <section id="cta-section" class="py-12 bg-gray-200 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestro catálogo?</h2>
+        <a href="https://example.com/catalogo.pdf" target="_blank" class="inline-block bg-green-600 text-white text-xl font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition duration-300">
+            Ver catálogo completo
+        </a>
+    </section>
+
+    <!-- Pie de Página (Footer) -->
+    <footer id="footer-section" class="bg-gray-800 text-white py-12 text-center">
+        <div class="container mx-auto px-4">
+            <!-- Título "¡Sumate y seguinos en nuestras redes!" eliminado -->
+            <!-- Enlaces de redes sociales eliminados -->
+            <p class="text-gray-400 text-sm mt-8">
+                &copy; 2025
+            </p>
+        </div>
+    </footer>
+
+    <!-- Floating Scroll-to-Top Button -->
+    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode for an upward arrow -->
+
+    <script>
+        let player; // Variable global para el reproductor de YouTube
+        let isPlayerReady = false; // Nueva bandera para verificar si el reproductor de YouTube está listo
+
+        // Esta función se ejecuta automáticamente cuando la API de Iframe de YouTube se carga.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Silenciar el video al cargarse, ya que el autoplay sin mutear puede ser bloqueado por los navegadores.
+            event.target.mute();
+            isPlayerReady = true; // El reproductor está listo
+            // El video no se reproduce automáticamente aquí; el IntersectionObserver lo controlará.
+        }
+
+        function onPlayerStateChange(event) {
+            // Puedes añadir lógica aquí si necesitas reaccionar a cambios de estado del video
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Define todas las listas de portadas para el slider 3D
+            const allBookCovers = [
+                // Lista 1 (portadas iniciales)
+                [
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif", alt: "Portada Libro 1" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif", alt: "Portada Libro 2" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif", alt: "Portada Libro 3" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif", alt: "Portada Libro 4" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif", alt: "Portada Libro 5" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif", alt: "Portada Libro 6" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif", alt: "Portada Libro 7" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif", alt: "Portada Libro 8" },
+                ],
+                // Lista 2 (ejemplo de nuevas portadas)
+                [
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/cuenca-g.gif", alt: "Portada Novela A" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/eros-g.gif", alt: "Portada Ensayo B" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esas-g.gif", alt: "Portada Poesía C" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esc-populares-g.gif", alt: "Portada Historia D" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/estacion-g.gif", alt: "Portada Ciencia E" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/invernales-g.gif", alt: "Portada Arte F" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/miradas-g.gif", alt: "Portada Filosofía G" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/turismo-g.gif", alt: "Portada Biografía H" },
+                ],
+                // Lista 3 (otro ejemplo de nuevas portadas)
+                [
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/9-g.gif", alt: "Portada Infantil I" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/10-g.gif", alt: "Portada Suspense J" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/11-g.gif", alt: "Portada Fantasía K" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/12-g.gif", alt: "Portada Cocina L" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/14-g.gif", alt: "Portada Viajes M" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/15-g.gif", alt: "Portada Negocios N" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/16-g.gif", alt: "Portada Salud O" },
+                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/17-g.gif", alt: "Portada Humor P" },
+                ]
+            ];
+
+            let currentListIndex = 0;
+            const slider = document.getElementById('bookSlider');
+
+            // Función para actualizar las imágenes del slider 3D
+            function updateSliderImages() {
+                currentListIndex = (currentListIndex + 1) % allBookCovers.length;
+                const nextList = allBookCovers[currentListIndex];
+                const items = slider.querySelectorAll('.item img');
+
+                items.forEach(img => {
+                    img.style.opacity = '0';
+                });
+
+                setTimeout(() => {
+                    items.forEach((img, index) => {
+                        if (nextList[index]) {
+                            img.src = nextList[index].src;
+                            img.alt = nextList[index].alt;
+                        }
+                        img.style.opacity = '1';
+                    });
+                }, 500);
+            }
+
+            if (slider) {
+                slider.addEventListener('animationiteration', (event) => {
+                    if (event.animationName === 'autoRun') {
+                        updateSliderImages();
+                    }
+                });
+            }
+
+            // JavaScript para el cambio de fondo y la imagen flotante
+            const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
+            const floatingImage = document.getElementById('floating-image');
+            const body = document.body;
+            const videoSection = document.getElementById('video-section');
+
+            // Definir los colores de fondo para cada sección por su ID
+            const sectionColors = {
+                'inicio': '#0da353',
+                'nosotros': '#006bcd',
+                'servicios': '#FF0000',
+                'galeria': '#ffc300',
+                'our-history-images': '#FFFFFF',
+                'timeline-section': '#FFFFFF',
+                'mission-statement': '#0da353',
+                'video-section': '#333333',
+                'cta-section': '#e2e8f0',
+                'footer-section': '#1a202c'
+            };
+
+            // Secciones en las que la imagen flotante DEBE ser visible
+            const sectionsForFloatingImageVisibility = ['servicios', 'galeria'];
+
+            const observer = new IntersectionObserver((entries) => {
+                let anyVisibleFloatingImageSection = false;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+
+                        // Cambiar el color de fondo del body
+                        if (sectionColors[sectionId]) {
+                            body.style.backgroundColor = sectionColors[sectionId];
+                        }
+
+                        // Comprobar si esta sección intersectante debe mostrar la imagen flotante
+                        if (sectionsForFloatingImageVisibility.includes(sectionId)) {
+                            anyVisibleFloatingImageSection = true;
+                        }
+
+                        // Lógica de reproducción/pausa del video
+                        if (sectionId === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
+                            // Intentar reproducir el video cuando la sección es visible
+                            // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
+                            player.playVideo();
+                            player.mute(); // Asegurarse de que esté silenciado para el autoplay si es permitido
+                        }
+                    } else {
+                        // Pausar el video cuando la sección no es visible
+                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
+                            player.pauseVideo();
+                        }
+                    }
+                });
+
+                // Después de verificar todas las entradas que intersectan, decide la visibilidad de la imagen
+                if (anyVisibleFloatingImageSection) {
+                    floatingImage.classList.remove('fade-out');
+                } else {
+                    floatingImage.classList.add('fade-out');
+                }
+            }, { threshold: 0.1 }); // Umbral pequeño para detectar entrada/salida rápidamente
+
+            // Observar cada sección relevante
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Inicialmente, ocultar la imagen si la sección de inicio o cualquier sección donde no deba verse
+            // es la primera visible.
+            const initialHiddenSections = ['inicio', 'nosotros', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'cta-section', 'footer-section'];
+
+            const initialCheckObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && initialHiddenSections.includes(entry.target.id)) {
+                        floatingImage.classList.add('fade-out');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            initialHiddenSections.forEach(sectionId => {
+                const sectionElement = document.getElementById(sectionId);
+                if (sectionElement) {
+                    initialCheckObserver.observe(sectionElement);
+                }
+            });
+
+            // Counter animation logic
+            const counterElement = document.getElementById('counterDisplay');
+            let hasAnimated = false; // Flag to ensure animation runs only once
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        animateCounter(counterElement, 100, ' +', ' OBRAS PUBLICADAS');
+                        hasAnimated = true; // Set flag to true after animation starts
+                        counterObserver.unobserve(entry.target); // Stop observing after animation
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+            counterObserver.observe(counterElement);
+
+            function animateCounter(element, target, prefix = '', suffix = '') {
+                let current = 0;
+                const duration = 2000; // 2 seconds
+                const stepTime = 10; // milliseconds
+                const increment = target / (duration / stepTime);
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    element.textContent = prefix + Math.floor(current) + suffix;
+                }, stepTime);
+            }
+
+            // Scroll-to-top button logic
+            const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
+
+            // Show or hide the button based on scroll position
+            window.onscroll = function() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            };
+
+            // When the user clicks on the button, scroll to the top of the document
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Hamburger menu logic
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileNavContainer = document.getElementById('mobile-nav-container');
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+
+            hamburgerButton.addEventListener('click', () => {
+                mobileNavContainer.classList.toggle('open');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileNavLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNavContainer.classList.remove('open');
+                });
+            });
+
+            // Close mobile menu when clicking outside of it (but not on the button)
+            document.addEventListener('click', (event) => {
+                if (!mobileNavContainer.contains(event.target) && !hamburgerButton.contains(event.target) && mobileNavContainer.classList.contains('open')) {
+                    mobileNavContainer.classList.remove('open');
+                }
+            });
+
+            // Function to create and populate a carousel for collections
+            function setupCarousel(trackId, itemClassName, imageUrls, numImages = 10, animationDuration = 20) {
+                const track = document.getElementById(trackId);
+                if (!track) return;
+
+                let imagesToUse = [];
+                // Repeat images to fill numImages
+                for (let i = 0; i < numImages; i++) {
+                    imagesToUse.push(imageUrls[i % imageUrls.length]);
+                }
+                imagesToUse = imagesToUse.concat(imagesToUse); // Duplicate for seamless looping
+
+                track.innerHTML = ''; // Clear existing content
+                imagesToUse.forEach(url => {
+                    const item = document.createElement('div');
+                    item.classList.add(itemClassName); // Use the passed class name
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = 'Imagen de carrusel'; // Generic alt text
+                    // Add onerror for fallback image
+                    img.onerror = function() { this.onerror=null; this.src='https://placehold.co/250x350/CCCCCC/FFFFFF/png?text=Error'; };
+                    item.appendChild(img);
+                    track.appendChild(item);
+                });
+
+                // Calculate the width for the animation dynamically based on the first item's width
+                // This assumes all images have the same width as defined in CSS for .carousel-item-collection
+                // and that the first item exists.
+                const firstItem = track.querySelector(`.${itemClassName}`);
+                const singleItemWidth = firstItem ? firstItem.offsetWidth : 250; // Default if not found
+                const totalOriginalWidth = numImages * singleItemWidth;
+
+                // Create a dynamic stylesheet to update the animation
+                const styleId = `scrollRightToLeft-${trackId}-style`;
+                let styleSheet = document.getElementById(styleId);
+                if (!styleSheet) {
+                    styleSheet = document.createElement("style");
+                    styleSheet.id = styleId;
+                    document.head.appendChild(styleSheet);
+                }
+                styleSheet.innerText = `
+                    @keyframes scrollRightToLeft-${trackId} {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(-${totalOriginalWidth}px); }
+                    }
+                    #${trackId} {
+                        animation: scrollRightToLeft-${trackId} ${animationDuration}s linear infinite;
+                    }
+                `;
+            }
+
+            // Image URLs for the history carousel
+            const historyImageUrls = [
+                "https://placehold.co/400x300/A2D9CE/000000?text=Historia+1",
+                "https://placehold.co/400x300/82E0AA/000000?text=Historia+2",
+                "https://placehold.co/400x300/58D68D/000000?text=Historia+3",
+                "https://placehold.co/400x300/2ECC71/000000?text=Historia+4",
+                "https://placehold.co/400x300/28B463/000000?text=Historia+5",
+                "https://placehold.co/400x300/239B56/000000?text=Historia+6",
+                "https://placehold.co/400x300/1D8348/000000?text=Historia+7",
+                "https://placehold.co/400x300/186A3B/000000?text=Historia+8",
+                "https://placehold.co/400x300/13522E/000000?text=Historia+9",
+                "https://placehold.co/400x300/0E3E21/000000?text=Historia+10"
+            ];
+
+            // Call the function for each carousel with the specified image URLs
+            setupCarousel('aulasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-02-optimiza-aulas.png"], 10, 20);
+            setupCarousel('cienciasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-01-alero-ciencias.png"], 10, 20);
+            setupCarousel('sociedadCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-03-esas%20cosas-sociedad.png"], 10, 20);
+            setupCarousel('historyCarouselTrack', 'carousel-item-history', historyImageUrls, historyImageUrls.length, 30); // Longer duration for history
+        });
+    </script>
+</body>
+</html>
