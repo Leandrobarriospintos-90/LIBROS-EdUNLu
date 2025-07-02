@@ -523,18 +523,19 @@
         /* Video section styles */
         #video-section {
             background-color: #333; /* Dark background for video section */
-            height: 100vh;
+            padding: 0; /* Removed vertical padding to allow full height */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0; /* Remove padding as video will take full width */
             box-sizing: border-box;
             overflow: hidden; /* Ensure no overflow */
+            width: 100%; /* Ensure section takes full width */
         }
 
         .video-responsive {
             position: relative;
-            width: 100%;
+            width: 100%; /* Changed to 100% to fill the section */
+            /* Removed max-width to allow it to expand fully */
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
@@ -744,7 +745,7 @@
         <section id="video-section">
             <div class="video-responsive">
                 <!-- ID para el reproductor de YouTube API -->
-                <iframe id="youtube-player" width="100%" height="600" src="https://www.youtube.com/embed/9W9kI2wLdjQ?si=PnVLtp06i1G_45e3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe id="youtube-player" width="100%" height="100%" src="https://www.youtube.com/embed/9W9kI2wLdjQ?si=PnVLtp06i1G_45e3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -917,66 +918,97 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Define todas las listas de portadas para el slider 3D
+            // Function to shuffle an array (Fisher-Yates algorithm)
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+                }
+            }
+
+            // Define a single list of 104 book covers
             const allBookCovers = [
-                // Lista 1 (portadas iniciales)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif", alt: "Portada Libro 1" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif", alt: "Portada Libro 2" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif", alt: "Portada Libro 3" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif", alt: "Portada Libro 4" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif", alt: "Portada Libro 5" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif", alt: "Portada Libro 6" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif", alt: "Portada Libro 7" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif", alt: "Portada Libro 8" },
-                ],
-                // Lista 2 (ejemplo de nuevas portadas)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/cuenca-g.gif", alt: "Portada Novela A" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/eros-g.gif", alt: "Portada Ensayo B" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esas-g.gif", alt: "Portada Poesía C" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esc-populares-g.gif", alt: "Portada Historia D" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/estacion-g.gif", alt: "Portada Ciencia E" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/invernales-g.gif", alt: "Portada Arte F" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/miradas-g.gif", alt: "Portada Filosofía G" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/turismo-g.gif", alt: "Portada Biografía H" },
-                ],
-                // Lista 3 (otro ejemplo de nuevas portadas)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/9-g.gif", alt: "Portada Infantil I" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/10-g.gif", alt: "Portada Suspense J" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/11-g.gif", alt: "Portada Fantasía K" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/12-g.gif", alt: "Portada Cocina L" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/14-g.gif", alt: "Portada Viajes M" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/15-g.gif", alt: "Portada Negocios N" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/16-g.gif", alt: "Portada Salud O" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/17-g.gif", alt: "Portada Humor P" },
-                ]
+                // Existing covers from list 1 (8 covers)
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif", alt: "Portada Libro 1" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif", alt: "Portada Libro 2" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif", alt: "Portada Libro 3" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif", alt: "Portada Libro 4" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif", alt: "Portada Libro 5" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif", alt: "Portada Libro 6" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif", alt: "Portada Libro 7" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif", alt: "Portada Libro 8" },
+                // Existing covers from list 2 (8 covers)
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/cuenca-g.gif", alt: "Portada Novela A" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/eros-g.gif", alt: "Portada Ensayo B" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esas-g.gif", alt: "Portada Poesía C" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esc-populares-g.gif", alt: "Portada Historia D" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/estacion-g.gif", alt: "Portada Ciencia E" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/invernales-g.gif", alt: "Portada Arte F" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/miradas-g.gif", alt: "Portada Filosofía G" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/turismo-g.gif", alt: "Portada Biografía H" },
+                // Existing covers from list 3 (8 covers)
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/9-g.gif", alt: "Portada Infantil I" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/10-g.gif", alt: "Portada Suspense J" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/11-g.gif", alt: "Portada Fantasía K" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/12-g.gif", alt: "Portada Cocina L" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/14-g.gif", alt: "Portada Viajes M" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/15-g.gif", alt: "Portada Negocios N" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/16-g.gif", alt: "Portada Salud O" },
+                { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/17-g.gif", alt: "Portada Humor P" },
             ];
 
-            let currentListIndex = 0;
-            const slider = document.getElementById('bookSlider');
+            // Add 80 more placeholder covers to reach 104 total
+            for (let i = allBookCovers.length; i < 104; i++) {
+                allBookCovers.push({ src: `https://placehold.co/200x280/D3D3D3/000000?text=Libro+${i + 1}`, alt: `Portada Libro ${i + 1}` });
+            }
 
-            // Función para actualizar las imágenes del slider 3D
+            // Shuffle the entire list of book covers once at the start
+            shuffleArray(allBookCovers);
+
+            const slider = document.getElementById('bookSlider');
+            const numSliderItems = slider.querySelectorAll('.item').length; // Should be 8
+            let displayStartIndex = 0; // Tracks the starting index in allBookCovers for the current display
+
+            // Function to update the 3D slider images
             function updateSliderImages() {
-                currentListIndex = (currentListIndex + 1) % allBookCovers.length;
-                const nextList = allBookCovers[currentListIndex];
+                // Calculate the next set of 8 images to display
+                const nextCoversToDisplay = [];
+                for (let i = 0; i < numSliderItems; i++) {
+                    const indexInAllCovers = (displayStartIndex + i) % allBookCovers.length;
+                    nextCoversToDisplay.push(allBookCovers[indexInAllCovers]);
+                }
+                
+                // Update displayStartIndex for the next iteration
+                displayStartIndex = (displayStartIndex + numSliderItems) % allBookCovers.length;
+
                 const items = slider.querySelectorAll('.item img');
 
                 items.forEach(img => {
-                    img.style.opacity = '0';
+                    img.style.opacity = '0'; // Fade out current images
                 });
 
                 setTimeout(() => {
                     items.forEach((img, index) => {
-                        if (nextList[index]) {
-                            img.src = nextList[index].src;
-                            img.alt = nextList[index].alt;
+                        if (nextCoversToDisplay[index]) {
+                            img.src = nextCoversToDisplay[index].src;
+                            img.alt = nextCoversToDisplay[index].alt;
                         }
-                        img.style.opacity = '1';
+                        img.style.opacity = '1'; // Fade in new images
                     });
-                }, 500);
+                }, 500); // Wait for fade out to complete before changing src and fading in
             }
+
+            // Initial population of the slider with the first 8 shuffled items
+            const initialItems = slider.querySelectorAll('.item img');
+            for (let i = 0; i < numSliderItems; i++) {
+                if (allBookCovers[i]) {
+                    initialItems[i].src = allBookCovers[i].src;
+                    initialItems[i].alt = allBookCovers[i].alt;
+                }
+            }
+            // Set initial displayStartIndex for the next cycle
+            displayStartIndex = numSliderItems % allBookCovers.length;
+
 
             if (slider) {
                 slider.addEventListener('animationiteration', (event) => {
@@ -986,13 +1018,13 @@
                 });
             }
 
-            // JavaScript para el cambio de fondo y la imagen flotante
+            // JavaScript for background color change and floating image
             const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
             const floatingImage = document.getElementById('floating-image');
             const body = document.body;
             const videoSection = document.getElementById('video-section');
 
-            // Definir los colores de fondo para cada sección por su ID
+            // Define background colors for each section by its ID
             const sectionColors = {
                 'inicio': '#0da353',
                 'nosotros': '#006bcd',
@@ -1006,7 +1038,7 @@
                 'footer-section': '#1a202c'
             };
 
-            // Secciones en las que la imagen flotante DEBE ser visible
+            // Sections where the floating image SHOULD be visible
             const sectionsForFloatingImageVisibility = ['servicios', 'galeria'];
 
             const observer = new IntersectionObserver((entries) => {
@@ -1015,46 +1047,46 @@
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.id;
 
-                        // Cambiar el color de fondo del body
+                        // Change body background color
                         if (sectionColors[sectionId]) {
                             body.style.backgroundColor = sectionColors[sectionId];
                         }
 
-                        // Comprobar si esta sección intersectante debe mostrar la imagen flotante
+                        // Check if this intersecting section should show the floating image
                         if (sectionsForFloatingImageVisibility.includes(sectionId)) {
                             anyVisibleFloatingImageSection = true;
                         }
 
-                        // Lógica de reproducción/pausa del video
-                        if (sectionId === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
-                            // Intentar reproducir el video cuando la sección es visible
-                            // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
+                        // Video playback/pause logic
+                        if (sectionId === 'video-section' && player && isPlayerReady) { // Added isPlayerReady check
+                            // Attempt to play video when section is visible
+                            // Autoplay may fail if browser blocks it (especially without prior user interaction)
                             player.playVideo();
-                            player.mute(); // Asegurarse de que esté silenciado para el autoplay si es permitido
+                            player.mute(); // Ensure it's muted for autoplay if allowed
                         }
                     } else {
-                        // Pausar el video cuando la sección no es visible
-                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
+                        // Pause video when section is not visible
+                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Added isPlayerReady check
                             player.pauseVideo();
                         }
                     }
                 });
 
-                // Después de verificar todas las entradas que intersectan, decide la visibilidad de la imagen
+                // After checking all intersecting entries, decide image visibility
                 if (anyVisibleFloatingImageSection) {
                     floatingImage.classList.remove('fade-out');
                 } else {
                     floatingImage.classList.add('fade-out');
                 }
-            }, { threshold: 0.1 }); // Umbral pequeño para detectar entrada/salida rápidamente
+            }, { threshold: 0.1 }); // Small threshold to detect entry/exit quickly
 
-            // Observar cada sección relevante
+            // Observe each relevant section
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Inicialmente, ocultar la imagen si la sección de inicio o cualquier sección donde no deba verse
-            // es la primera visible.
+            // Initially, hide the image if the home section or any section where it shouldn't be visible
+            // is the first visible.
             const initialHiddenSections = ['inicio', 'nosotros', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'cta-section', 'footer-section'];
 
             const initialCheckObserver = new IntersectionObserver((entries) => {
