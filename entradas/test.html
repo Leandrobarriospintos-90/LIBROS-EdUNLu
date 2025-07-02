@@ -4,36 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aniversario Editorial Universitaria</title>
-    <!-- Tailwind CSS CDN for modern styling -->
+    <!-- CDN de Tailwind CSS para estilos modernos -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Inter font -->
+    <!-- Google Fonts para la fuente Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- YouTube Iframe Player API -->
+    <!-- API de Iframe de YouTube Player -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <style>
         /* --- ESTILOS GENERALES Y RESETEO --- */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* Desplazamiento suave para los anclajes */
         }
 
         body {
             margin: 0;
             font-family: 'Inter', sans-serif; /* Usando Inter como base para todo el body */
-            color: #fff;
+            color: #fff; /* Color de texto predeterminado */
             background-color: #0da353; /* Color de fondo inicial para la sección de inicio */
             overflow-x: hidden; /* Evita el scroll horizontal */
             overscroll-behavior-y: none; /* Evita el efecto "rebote" al final del scroll */
             transition: background-color 0.8s ease; /* Transición suave para el cambio de color de fondo */
         }
 
-        /* Custom CSS for 3D Slider effect - preserving original logic */
+        /* Estilos CSS personalizados para el efecto de Slider 3D - conservando la lógica original */
         .banner {
             width: 100%;
             height: 100vh;
             text-align: center;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(to bottom, #FFFFFF, #F0FFF0); /* Gradient background updated */
+            background: linear-gradient(to bottom, #FFFFFF, #F0FFF0); /* Fondo con gradiente actualizado */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -42,13 +42,13 @@
 
         .banner .slider {
             position: absolute;
-            width: 200px; /* Base width of each book cover */
-            height: 280px; /* Base height of each book cover */
-            top: 15%; /* Adjusted for better vertical centering */
-            left: calc(50% - 100px); /* Center horizontally */
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            animation: autoRun 20s linear infinite; /* Animation for automatic rotation */
+            width: 200px; /* Ancho base de cada portada de libro */
+            height: 280px; /* Alto base de cada portada de libro */
+            top: 15%; /* Ajustado para un mejor centrado vertical */
+            left: calc(50% - 100px); /* Centrado horizontal */
+            transform-style: preserve-3d; /* Preserva la transformación 3D de los hijos */
+            transform: perspective(1000px); /* Perspectiva para el efecto 3D */
+            animation: autoRun 20s linear infinite; /* Animación para rotación automática */
             z-index: 20; /* Aumentado el z-index para que el slider esté por encima del logo */
         }
 
@@ -63,23 +63,23 @@
 
         .banner .slider .item {
             position: absolute;
-            inset: 0 0 0 0;
-            /* Calculates position and depth for 3D effect based on CSS variables */
+            inset: 0 0 0 0; /* Ocupa todo el espacio del padre */
+            /* Calcula la posición y profundidad para el efecto 3D basado en variables CSS */
             transform:
                 rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-                translateZ(550px); /* Distance from the center of the circle */
-            border-radius: 8px; /* Rounded corners for book covers */
-            overflow: hidden; /* Ensure image doesn't spill out */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-            transition: transform 0.5s ease-out; /* Smooth transition for potential future interactions */
+                translateZ(550px); /* Distancia desde el centro del círculo */
+            border-radius: 8px; /* Bordes redondeados para las portadas de libros */
+            overflow: hidden; /* Asegura que la imagen no se desborde */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra suave para profundidad */
+            transition: transform 0.5s ease-out; /* Transición suave para posibles interacciones futuras */
         }
 
         .banner .slider .item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures images cover the item area */
-            border-radius: 8px; /* Apply rounded corners to images too */
-            transition: opacity 0.5s ease-in-out; /* Added for smooth transitions */
+            object-fit: cover; /* Asegura que las imágenes cubran el área del item */
+            border-radius: 8px; /* Aplica bordes redondeados también a las imágenes */
+            /* Eliminada la transición de opacidad aquí para un cambio instantáneo */
         }
 
         .banner .content {
@@ -89,7 +89,7 @@
             transform: translateX(-50%);
             width: min(1400px, 100vw);
             height: max-content;
-            padding-bottom: 80px; /* Space from bottom */
+            padding-bottom: 80px; /* Espacio desde la parte inferior */
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -114,7 +114,7 @@
             line-height: 1.4;
         }
 
-        /* Responsive adjustments for banner */
+        /* Ajustes responsivos para el banner */
         @media screen and (max-width: 1023px) {
             .banner .slider {
                 width: 160px;
@@ -162,7 +162,7 @@
             }
         }
 
-        /* Timeline specific styles */
+        /* Estilos específicos de la línea de tiempo */
         .timeline {
             position: relative;
             max-width: 1200px;
@@ -195,7 +195,7 @@
             height: 25px;
             right: -17px;
             background-color: #cbd5e1; /* Tailwind gray-300 */
-            border: 4px solid #0da353; /* Changed to green! */
+            border: 4px solid #0da353; /* Cambiado a verde */
             top: 15px;
             border-radius: 50%;
             z-index: 1;
@@ -247,7 +247,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Media queries for timeline responsiveness */
+        /* Media queries para la responsividad de la línea de tiempo */
         @media screen and (max-width: 768px) {
             .timeline::after {
                 left: 31px;
@@ -328,34 +328,34 @@
             text-align: right; /* Alineación del texto a la derecha */
         }
 
-        /* Styles for the new collection carousels */
+        /* Estilos para los nuevos carruseles de colección */
         .carousel-container-collection {
-            width: 250px; /* Fixed width for the carousel */
-            height: 350px; /* Fixed height for the carousel */
+            width: 250px; /* Ancho fijo para el carrusel */
+            height: 350px; /* Alto fijo para el carrusel */
             overflow: hidden;
             margin: 0 2rem;
             flex-shrink: 0;
             border-radius: 8px;
-            /* No box-shadow as requested */
+            /* No box-shadow como se solicitó */
         }
 
         .carousel-track-collection {
             display: flex;
-            white-space: nowrap; /* Keep items in a single line */
-            height: 100%; /* Ensure track takes full height of container */
+            white-space: nowrap; /* Mantiene los elementos en una sola línea */
+            height: 100%; /* Asegura que la pista ocupe toda la altura del contenedor */
         }
 
         .carousel-item-collection {
-            flex: 0 0 auto; /* Prevent items from shrinking or growing */
-            width: 250px; /* Each item takes the container width */
-            height: 100%; /* Ensure item takes full height */
-            display: inline-block; /* For older browser compatibility with white-space: nowrap */
+            flex: 0 0 auto; /* Evita que los elementos se encojan o crezcan */
+            width: 250px; /* Cada elemento ocupa el ancho del contenedor */
+            height: 100%; /* Asegura que el elemento ocupe toda la altura */
+            display: inline-block; /* Para compatibilidad con navegadores antiguos con white-space: nowrap */
         }
 
         .carousel-item-collection img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ensures image covers the area, cropping if necessary */
+            object-fit: contain; /* Asegura que la imagen cubra el área, recortando si es necesario */
             border-radius: 8px;
         }
 
@@ -377,26 +377,26 @@
             color: #fff; /* Texto blanco para los párrafos de sección */
         }
 
-        /* Styles for the new counter */
+        /* Estilos para el nuevo contador */
         .counter-display {
-            font-size: 5rem; /* Large font size for visibility */
-            font-weight: 800; /* Extra bold */
-            color: #fff; /* White color */
+            font-size: 5rem; /* Tamaño de fuente grande para visibilidad */
+            font-weight: 800; /* Extra negrita */
+            color: #fff; /* Color blanco */
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-            margin: 0 2rem; /* Add some horizontal margin */
-            flex-shrink: 0; /* Prevent it from shrinking */
+            margin: 0 2rem; /* Añade un margen horizontal */
+            flex-shrink: 0; /* Evita que se encoja */
             text-align: center; /* Centrar el texto dentro del contador */
         }
 
-        /* Responsive adjustments for collections text */
+        /* Ajustes responsivos para el texto de las colecciones */
         @media (max-width: 750px) { /* Ajustado a 750px como se solicitó */
             .counter-display {
                 font-size: 3rem;
-                margin-top: 1rem; /* Space from stacked text */
+                margin-top: 1rem; /* Espacio desde el texto apilado */
                 margin-bottom: 1rem;
             }
             .content-wrapper {
-                flex-direction: column; /* Stack elements vertically */
+                flex-direction: column; /* Apila los elementos verticalmente */
                 justify-content: center;
                 text-align: center;
             }
@@ -408,12 +408,12 @@
             }
 
             .carousel-container-collection {
-                width: 180px; /* Smaller carousel on mobile */
-                height: 250px; /* Adjust height for mobile */
-                margin: 1rem 0; /* Adjust margin for stacking */
+                width: 180px; /* Carrusel más pequeño en móvil */
+                height: 250px; /* Ajusta la altura para móvil */
+                margin: 1rem 0; /* Ajusta el margen para el apilamiento */
             }
             .carousel-item-collection {
-                width: 180px; /* Adjust item width for mobile */
+                width: 180px; /* Ajusta el ancho del elemento para móvil */
             }
 
             .section h1 {
@@ -433,13 +433,13 @@
             }
         }
 
-        /* New styles for the history carousel */
+        /* Nuevos estilos para el carrusel de historia */
         .carousel-container-history {
-            width: 100%; /* Full width of the section */
+            width: 100%; /* Ancho completo de la sección */
             overflow: hidden;
-            margin: 0 auto; /* Center the carousel */
+            margin: 0 auto; /* Centra el carrusel */
             border-radius: 8px;
-            height: 300px; /* Fixed height for the history carousel */
+            height: 300px; /* Alto fijo para el carrusel de historia */
         }
 
         .carousel-track-history {
@@ -449,8 +449,8 @@
         }
 
         .carousel-item-history {
-            flex: 0 0 auto;
-            width: 400px; /* Width of each image in the history carousel */
+            flex: 0 0 auto; /* Evita que los elementos se encojan o crezcan */
+            width: 400px; /* Ancho de cada imagen en el carrusel de historia */
             height: 100%;
             display: inline-block;
         }
@@ -458,23 +458,23 @@
         .carousel-item-history img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures image covers the area, cropping if necessary */
-            border-radius: 0; /* No rounded corners for seamless wall */
+            object-fit: cover; /* Asegura que la imagen cubra el área, recortando si es necesario */
+            border-radius: 0; /* Sin bordes redondeados para una pared sin fisuras */
         }
 
-        /* Responsive adjustments for history carousel */
+        /* Ajustes responsivos para el carrusel de historia */
         @media (max-width: 1024px) {
             .carousel-item-history {
-                width: 300px; /* Adjust width for tablets */
+                width: 300px; /* Ajusta el ancho para tabletas */
             }
-            /* .carousel-container-history height is now fixed at 300px, no need to adjust here */
+            /* La altura de .carousel-container-history ahora es fija en 300px, no es necesario ajustarla aquí */
         }
 
         @media (max-width: 768px) {
             .carousel-item-history {
-                width: 100vw; /* Full viewport width for mobile */
+                width: 100vw; /* Ancho completo del viewport para móvil */
             }
-            /* .carousel-container-history height is now fixed at 300px, no need to adjust here */
+            /* La altura de .carousel-container-history ahora es fija en 300px, no es necesario ajustarla aquí */
         }
 
 
@@ -488,28 +488,28 @@
             color: #2F4F4F; /* Ajusta el color del texto para que contraste con el blanco */
             padding: 0; /* Eliminar padding para que el muro de fotos ocupe todo el ancho */
             height: 300px; /* Altura fija para esta sección */
-            min-height: unset; /* Override previous min-height */
+            min-height: unset; /* Anula la altura mínima anterior */
         }
         
-        /* Ensure timeline section background is white */
+        /* Asegura que el fondo de la sección de la línea de tiempo sea blanco */
         #timeline-section {
             background-color: #FFFFFF;
         }
 
-        /* New section specific styles */
+        /* Nuevos estilos específicos de la sección */
         #mission-statement {
             background-color: #0da353; /* Color de fondo actualizado a #0da353 */
-            color: #fff; /* White text */
+            color: #fff; /* Texto blanco */
             text-align: center;
-            padding: 80px 2rem; /* Add some padding */
+            padding: 80px 2rem; /* Añade algo de padding */
             box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         #mission-statement p {
-            max-width: 800px; /* Limit width for readability */
-            font-size: 1.5rem; /* Larger font size */
+            max-width: 800px; /* Limita el ancho para legibilidad */
+            font-size: 1.5rem; /* Tamaño de fuente más grande */
             line-height: 1.8;
             margin: 0 auto;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
@@ -520,23 +520,23 @@
             }
         }
 
-        /* Video section styles */
+        /* Estilos de la sección de video */
         #video-section {
-            background-color: #333; /* Dark background for video section */
-            padding: 0; /* Removed vertical padding to allow full height */
+            background-color: #333; /* Fondo oscuro para la sección de video */
+            padding: 0; /* Se eliminó el padding vertical para permitir la altura completa */
             display: flex;
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
-            overflow: hidden; /* Ensure no overflow */
-            width: 100%; /* Ensure section takes full width */
+            overflow: hidden; /* Asegura que no haya desbordamiento */
+            width: 100%; /* Asegura que la sección ocupe todo el ancho */
         }
 
         .video-responsive {
             position: relative;
-            width: 100%; /* Changed to 100% to fill the section */
-            /* Removed max-width to allow it to expand fully */
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            width: 100%; /* Cambiado a 100% para llenar la sección */
+            /* Se eliminó max-width para permitir que se expanda completamente */
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
             height: 0;
             overflow: hidden;
         }
@@ -550,31 +550,31 @@
             border: 0;
         }
 
-        /* New styles for the scroll-to-top button */
+        /* Nuevos estilos para el botón de desplazamiento hacia arriba */
         #scroll-to-top-btn {
-            display: none; /* Hidden by default */
-            position: fixed; /* Fixed position */
-            bottom: 20px; /* 20px from the bottom */
-            right: 20px; /* 20px from the right */
-            z-index: 99; /* High z-index to be on top */
-            border: none; /* No border */
-            outline: none; /* No outline */
-            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% transparency */
-            color: white; /* White text/icon */
-            cursor: pointer; /* Pointer cursor on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 0; /* Square shape (removed border-radius: 50%) */
-            font-size: 22px; /* Icon size */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Posición fija */
+            bottom: 20px; /* 20px desde la parte inferior */
+            right: 20px; /* 20px desde la derecha */
+            z-index: 99; /* Z-index alto para estar encima */
+            border: none; /* Sin borde */
+            outline: none; /* Sin contorno */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con 50% de transparencia */
+            color: white; /* Texto/icono blanco */
+            cursor: pointer; /* Cursor de puntero al pasar el ratón */
+            padding: 15px; /* Algo de padding */
+            border-radius: 0; /* Forma cuadrada (se eliminó border-radius: 50%) */
+            font-size: 22px; /* Tamaño del icono */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
         }
 
         #scroll-to-top-btn:hover {
-            background-color: rgba(0, 0, 0, 0.7); /* Darker black on hover (70% transparency) */
-            transform: scale(1.05); /* Slightly enlarge on hover */
+            background-color: rgba(0, 0, 0, 0.7); /* Negro más oscuro al pasar el ratón (70% de transparencia) */
+            transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
         }
 
-        /* Optional: adjust for smaller screens if needed */
+        /* Opcional: ajusta para pantallas más pequeñas si es necesario */
         @media (max-width: 600px) {
             #scroll-to-top-btn {
                 bottom: 15px;
@@ -584,32 +584,32 @@
             }
         }
 
-        /* Hamburger menu styles */
+        /* Estilos del menú de hamburguesa */
         .hamburger-menu-button {
-            display: none; /* Hidden by default */
+            display: none; /* Oculto por defecto */
             font-size: 2rem;
             background: none;
             border: none;
             color: #333;
             cursor: pointer;
-            z-index: 40; /* Ensure it's above other header elements */
+            z-index: 40; /* Asegura que esté por encima de otros elementos del encabezado */
         }
 
         .mobile-nav-container {
-            display: none; /* Hidden by default */
+            display: none; /* Oculto por defecto */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 35; /* Above header but below floating image */
+            z-index: 35; /* Encima del encabezado pero debajo de la imagen flotante */
             flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: opacity 0.3s ease-in-out;
             opacity: 0;
-            pointer-events: none; /* Prevents interaction when hidden */
+            pointer-events: none; /* Evita la interacción cuando está oculto */
         }
 
         .mobile-nav-container.open {
@@ -637,31 +637,31 @@
         }
 
         .mobile-nav-container ul li a:hover {
-            color: #0da353; /* Green on hover */
+            color: #0da353; /* Verde al pasar el ratón */
         }
 
         @media (max-width: 700px) {
             .hamburger-menu-button {
-                display: block; /* Show hamburger on small screens */
+                display: block; /* Muestra la hamburguesa en pantallas pequeñas */
             }
             header nav {
-                display: none; /* Hide desktop nav on small screens */
+                display: none; /* Oculta la navegación de escritorio en pantallas pequeñas */
             }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
-    <!-- Header Section -->
+    <!-- Sección de Encabezado -->
     <header class="w-full p-4 bg-white shadow-md flex justify-between items-center z-30 relative">
         <div class="flex items-center space-x-2">
-            <!-- Replaced h1 with an img tag for the logo, now also a link to the top of the page -->
+            <!-- Se reemplazó h1 con una etiqueta img para el logo, ahora también un enlace a la parte superior de la página -->
             <a href="#">
                 <img src="https://leandrobarriospintos-90.github.io/LIBROS-EdUNLu/entradas/marca-completo-original-edunlu-svg.svg"
                     alt="Logo Editorial Universitaria"
-                    class="h-10 w-auto"> <!-- Tailwind classes for height and auto width -->
+                    class="h-10 w-auto"> <!-- Clases de Tailwind para altura y ancho automático -->
             </a>
         </div>
-        <!-- Desktop Navigation -->
+        <!-- Navegación de Escritorio -->
         <nav id="desktop-nav">
             <ul class="flex space-x-4">
                 <li><a href="#video-section" class="text-gray-600 hover:text-blue-600 transition duration-300">10 AÑOS</a></li>
@@ -670,13 +670,13 @@
                 <li><a href="#cta-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Catálogo</a></li>
             </ul>
         </nav>
-        <!-- Hamburger Menu Button -->
+        <!-- Botón de Menú de Hamburguesa -->
         <button class="hamburger-menu-button" id="hamburger-button" aria-label="Toggle navigation">
-            &#9776; <!-- Unicode for hamburger icon -->
+            &#9776; <!-- Unicode para el icono de hamburguesa -->
         </button>
     </header>
 
-    <!-- Mobile Navigation Menu -->
+    <!-- Menú de Navegación Móvil -->
     <div class="mobile-nav-container" id="mobile-nav-container">
         <ul id="mobile-nav-links">
             <li><a href="#video-section">10 AÑOS</a></li>
@@ -686,15 +686,15 @@
         </ul>
     </div>
 
-    <!-- Main Banner Section with 3D Slider -->
+    <!-- Sección Principal del Banner con Slider 3D -->
     <div class="banner">
-        <!-- SVG Logo in the center of the covers -->
+        <!-- Logo SVG en el centro de las portadas -->
         <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/aniversario-edunlu.png"
             alt="Logo Editorial Universitaria"
             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[21.6rem] h-[21.6rem] object-contain"
             style="z-index: 10;"> <!-- Z-index ajustado para que el logo esté detrás del slider cuando las portadas están al frente -->
 
-        <!-- Content Area below the slider - only author info remains -->
+        <!-- Área de Contenido debajo del slider - solo queda la información del autor -->
         <div class="content">
             <div class="author-info flex flex-col items-center md:items-end">
                 <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
@@ -703,10 +703,10 @@
                 </p>
             </div>
         </div>
-        <!-- 3D Slider Container -->
+        <!-- Contenedor del Slider 3D -->
         <div class="slider" id="bookSlider">
-            <!-- Book Cover Items (replace with your actual book cover images) -->
-            <!-- The '--position' CSS variable is crucial for the 3D rotation -->
+            <!-- Elementos de Portada de Libro (reemplazar con las imágenes reales de sus portadas) -->
+            <!-- La variable CSS '--position' es crucial para la rotación 3D -->
             <div class="item" style="--position: 1; --quantity: 8;">
                 <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif" alt="Portada Libro 1">
             </div>
@@ -889,8 +889,8 @@
         </div>
     </footer>
 
-    <!-- Floating Scroll-to-Top Button -->
-    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode for an upward arrow -->
+    <!-- Botón flotante para ir arriba -->
+    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode para una flecha hacia arriba -->
 
     <script>
         let player; // Variable global para el reproductor de YouTube
@@ -918,17 +918,17 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Function to shuffle an array (Fisher-Yates algorithm)
+            // Función para mezclar un array (algoritmo de Fisher-Yates)
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+                    [array[i], array[j]] = [array[j], array[i]]; // Intercambia elementos
                 }
             }
 
-            // Define a single list of 104 book covers
+            // Define una única lista de portadas de libros
             const allBookCovers = [
-                // Existing covers from list 1 (8 covers)
+                // Portadas existentes de la lista 1 (8 portadas)
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif", alt: "Portada Libro 1" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif", alt: "Portada Libro 2" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif", alt: "Portada Libro 3" },
@@ -937,7 +937,7 @@
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif", alt: "Portada Libro 6" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif", alt: "Portada Libro 7" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif", alt: "Portada Libro 8" },
-                // Existing covers from list 2 (8 covers)
+                // Portadas existentes de la lista 2 (8 portadas)
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/cuenca-g.gif", alt: "Portada Novela A" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/eros-g.gif", alt: "Portada Ensayo B" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esas-g.gif", alt: "Portada Poesía C" },
@@ -946,7 +946,7 @@
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/invernales-g.gif", alt: "Portada Arte F" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/miradas-g.gif", alt: "Portada Filosofía G" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/turismo-g.gif", alt: "Portada Biografía H" },
-                // Existing covers from list 3 (8 covers)
+                // Portadas existentes de la lista 3 (8 portadas)
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/9-g.gif", alt: "Portada Infantil I" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/10-g.gif", alt: "Portada Suspense J" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/11-g.gif", alt: "Portada Fantasía K" },
@@ -955,61 +955,63 @@
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/15-g.gif", alt: "Portada Negocios N" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/16-g.gif", alt: "Portada Salud O" },
                 { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/17-g.gif", alt: "Portada Humor P" },
+                // AÑADE AQUÍ MÁS OBJETOS { src: "URL_DE_TU_IMAGEN", alt: "Texto alternativo" } PARA TUS OTRAS PORTADAS.
+                // La lista contendrá solo las portadas definidas explícitamente aquí.
+                // Por ejemplo, si quieres 104 portadas en total, puedes añadir 80 más aquí:
+                // { src: "https://tu-dominio.com/mi-portada-1.jpg", alt: "Mi Portada 1" },
+                // { src: "https://tu-dominio.com/mi-portada-2.png", alt: "Mi Portada 2" },
+                // ...
             ];
 
-            // Add 80 more placeholder covers to reach 104 total
-            for (let i = allBookCovers.length; i < 104; i++) {
-                allBookCovers.push({ src: `https://placehold.co/200x280/D3D3D3/000000?text=Libro+${i + 1}`, alt: `Portada Libro ${i + 1}` });
-            }
-
-            // Shuffle the entire list of book covers once at the start
-            shuffleArray(allBookCovers);
+            // La lista se mezcla una vez al inicio, pero cada actualización del slider toma 8 elementos aleatorios de una copia recién mezclada.
 
             const slider = document.getElementById('bookSlider');
-            const numSliderItems = slider.querySelectorAll('.item').length; // Should be 8
-            let displayStartIndex = 0; // Tracks the starting index in allBookCovers for the current display
+            const numSliderItems = slider.querySelectorAll('.item').length; // Debería ser 8
 
-            // Function to update the 3D slider images
+            // Función para actualizar las imágenes del slider 3D
             function updateSliderImages() {
-                // Calculate the next set of 8 images to display
+                // Crea una copia de allBookCovers para mezclar sin afectar el orden original
+                let shuffledCovers = [...allBookCovers];
+                shuffleArray(shuffledCovers); // Mezcla la copia
+
                 const nextCoversToDisplay = [];
+                // Selecciona las primeras 'numSliderItems' (8) portadas únicas de la lista mezclada
                 for (let i = 0; i < numSliderItems; i++) {
-                    const indexInAllCovers = (displayStartIndex + i) % allBookCovers.length;
-                    nextCoversToDisplay.push(allBookCovers[indexInAllCovers]);
+                    // Asegura que no intentamos acceder a un índice fuera de los límites si allBookCovers es menor que numSliderItems
+                    if (shuffledCovers[i]) {
+                        nextCoversToDisplay.push(shuffledCovers[i]);
+                    } else {
+                        // Si no hay suficientes imágenes, repite las existentes o usa un marcador de posición
+                        nextCoversToDisplay.push(shuffledCovers[i % shuffledCovers.length]);
+                    }
                 }
-                
-                // Update displayStartIndex for the next iteration
-                displayStartIndex = (displayStartIndex + numSliderItems) % allBookCovers.length;
 
                 const items = slider.querySelectorAll('.item img');
 
-                items.forEach(img => {
-                    img.style.opacity = '0'; // Fade out current images
+                // Cambia inmediatamente el src de la imagen (sin transiciones de opacidad para un cambio más notorio)
+                items.forEach((img, index) => {
+                    if (nextCoversToDisplay[index]) {
+                        img.src = nextCoversToDisplay[index].src;
+                        img.alt = nextCoversToDisplay[index].alt;
+                    }
                 });
-
-                setTimeout(() => {
-                    items.forEach((img, index) => {
-                        if (nextCoversToDisplay[index]) {
-                            img.src = nextCoversToDisplay[index].src;
-                            img.alt = nextCoversToDisplay[index].alt;
-                        }
-                        img.style.opacity = '1'; // Fade in new images
-                    });
-                }, 500); // Wait for fade out to complete before changing src and fading in
             }
 
-            // Initial population of the slider with the first 8 shuffled items
+            // Población inicial del slider con 8 elementos aleatorios
             const initialItems = slider.querySelectorAll('.item img');
+            let initialShuffledCovers = [...allBookCovers]; // Copia para la mezcla inicial
+            shuffleArray(initialShuffledCovers); // Mezcla la copia inicial
             for (let i = 0; i < numSliderItems; i++) {
-                if (allBookCovers[i]) {
-                    initialItems[i].src = allBookCovers[i].src;
-                    initialItems[i].alt = allBookCovers[i].alt;
+                if (initialShuffledCovers[i]) {
+                    initialItems[i].src = initialShuffledCovers[i].src;
+                    initialItems[i].alt = initialShuffledCovers[i].alt;
+                } else {
+                    // Maneja el caso si allBookCovers es menor que numSliderItems al inicio
+                    initialItems[i].src = `https://placehold.co/200x280/D3D3D3/000000?text=Libro+${i + 1}`;
+                    initialItems[i].alt = `Portada Libro ${i + 1}`;
                 }
             }
-            // Set initial displayStartIndex for the next cycle
-            displayStartIndex = numSliderItems % allBookCovers.length;
-
-
+            
             if (slider) {
                 slider.addEventListener('animationiteration', (event) => {
                     if (event.animationName === 'autoRun') {
@@ -1018,13 +1020,13 @@
                 });
             }
 
-            // JavaScript for background color change and floating image
+            // JavaScript para el cambio de color de fondo y la imagen flotante
             const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
             const floatingImage = document.getElementById('floating-image');
             const body = document.body;
             const videoSection = document.getElementById('video-section');
 
-            // Define background colors for each section by its ID
+            // Define los colores de fondo para cada sección por su ID
             const sectionColors = {
                 'inicio': '#0da353',
                 'nosotros': '#006bcd',
@@ -1038,7 +1040,7 @@
                 'footer-section': '#1a202c'
             };
 
-            // Sections where the floating image SHOULD be visible
+            // Secciones en las que la imagen flotante DEBE ser visible
             const sectionsForFloatingImageVisibility = ['servicios', 'galeria'];
 
             const observer = new IntersectionObserver((entries) => {
@@ -1047,46 +1049,46 @@
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.id;
 
-                        // Change body background color
+                        // Cambia el color de fondo del body
                         if (sectionColors[sectionId]) {
                             body.style.backgroundColor = sectionColors[sectionId];
                         }
 
-                        // Check if this intersecting section should show the floating image
+                        // Comprueba si esta sección intersectante debe mostrar la imagen flotante
                         if (sectionsForFloatingImageVisibility.includes(sectionId)) {
                             anyVisibleFloatingImageSection = true;
                         }
 
-                        // Video playback/pause logic
-                        if (sectionId === 'video-section' && player && isPlayerReady) { // Added isPlayerReady check
-                            // Attempt to play video when section is visible
-                            // Autoplay may fail if browser blocks it (especially without prior user interaction)
+                        // Lógica de reproducción/pausa del video
+                        if (sectionId === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
+                            // Intenta reproducir el video cuando la sección es visible
+                            // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
                             player.playVideo();
-                            player.mute(); // Ensure it's muted for autoplay if allowed
+                            player.mute(); // Asegúrate de que esté silenciado para el autoplay si está permitido
                         }
                     } else {
-                        // Pause video when section is not visible
-                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Added isPlayerReady check
+                        // Pausa el video cuando la sección no es visible
+                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
                             player.pauseVideo();
                         }
                     }
                 });
 
-                // After checking all intersecting entries, decide image visibility
+                // Después de verificar todas las entradas que intersectan, decide la visibilidad de la imagen
                 if (anyVisibleFloatingImageSection) {
                     floatingImage.classList.remove('fade-out');
                 } else {
                     floatingImage.classList.add('fade-out');
                 }
-            }, { threshold: 0.1 }); // Small threshold to detect entry/exit quickly
+            }, { threshold: 0.1 }); // Umbral pequeño para detectar entrada/salida rápidamente
 
-            // Observe each relevant section
+            // Observa cada sección relevante
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Initially, hide the image if the home section or any section where it shouldn't be visible
-            // is the first visible.
+            // Inicialmente, oculta la imagen si la sección de inicio o cualquier sección donde no deba verse
+            // es la primera visible.
             const initialHiddenSections = ['inicio', 'nosotros', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'cta-section', 'footer-section'];
 
             const initialCheckObserver = new IntersectionObserver((entries) => {
@@ -1104,26 +1106,26 @@
                 }
             });
 
-            // Counter animation logic
+            // Lógica de animación del contador
             const counterElement = document.getElementById('counterDisplay');
-            let hasAnimated = false; // Flag to ensure animation runs only once
+            let hasAnimated = false; // Bandera para asegurar que la animación se ejecute solo una vez
 
             const counterObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
                         animateCounter(counterElement, 100, ' +', ' OBRAS PUBLICADAS');
-                        hasAnimated = true; // Set flag to true after animation starts
-                        counterObserver.unobserve(entry.target); // Stop observing after animation
+                        hasAnimated = true; // Establece la bandera a true después de que la animación comienza
+                        counterObserver.unobserve(entry.target); // Deja de observar después de la animación
                     }
                 });
-            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+            }, { threshold: 0.5 }); // Se activa cuando el 50% del elemento es visible
 
             counterObserver.observe(counterElement);
 
             function animateCounter(element, target, prefix = '', suffix = '') {
                 let current = 0;
-                const duration = 2000; // 2 seconds
-                const stepTime = 10; // milliseconds
+                const duration = 2000; // 2 segundos
+                const stepTime = 10; // milisegundos
                 const increment = target / (duration / stepTime);
 
                 const timer = setInterval(() => {
@@ -1136,10 +1138,10 @@
                 }, stepTime);
             }
 
-            // Scroll-to-top button logic
+            // Lógica del botón de desplazamiento hacia arriba
             const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
 
-            // Show or hide the button based on scroll position
+            // Muestra u oculta el botón según la posición de desplazamiento
             window.onscroll = function() {
                 if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                     scrollToTopBtn.style.display = "block";
@@ -1148,12 +1150,12 @@
                 }
             };
 
-            // When the user clicks on the button, scroll to the top of the document
+            // Cuando el usuario hace clic en el botón, se desplaza a la parte superior del documento
             scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Hamburger menu logic
+            // Lógica del menú de hamburguesa
             const hamburgerButton = document.getElementById('hamburger-button');
             const mobileNavContainer = document.getElementById('mobile-nav-container');
             const mobileNavLinks = document.getElementById('mobile-nav-links');
@@ -1162,53 +1164,53 @@
                 mobileNavContainer.classList.toggle('open');
             });
 
-            // Close mobile menu when a link is clicked
+            // Cierra el menú móvil cuando se hace clic en un enlace
             mobileNavLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNavContainer.classList.remove('open');
                 });
             });
 
-            // Close mobile menu when clicking outside of it (but not on the button)
+            // Cierra el menú móvil cuando se hace clic fuera de él (pero no en el botón)
             document.addEventListener('click', (event) => {
                 if (!mobileNavContainer.contains(event.target) && !hamburgerButton.contains(event.target) && mobileNavContainer.classList.contains('open')) {
                     mobileNavContainer.classList.remove('open');
                 }
             });
 
-            // Function to create and populate a carousel for collections
+            // Función para crear y poblar un carrusel para colecciones
             function setupCarousel(trackId, itemClassName, imageUrls, numImages = 10, animationDuration = 20) {
                 const track = document.getElementById(trackId);
                 if (!track) return;
 
                 let imagesToUse = [];
-                // Repeat images to fill numImages
+                // Repite las imágenes para llenar numImages
                 for (let i = 0; i < numImages; i++) {
                     imagesToUse.push(imageUrls[i % imageUrls.length]);
                 }
-                imagesToUse = imagesToUse.concat(imagesToUse); // Duplicate for seamless looping
+                imagesToUse = imagesToUse.concat(imagesToUse); // Duplica para un bucle sin fisuras
 
-                track.innerHTML = ''; // Clear existing content
+                track.innerHTML = ''; // Limpia el contenido existente
                 imagesToUse.forEach(url => {
                     const item = document.createElement('div');
-                    item.classList.add(itemClassName); // Use the passed class name
+                    item.classList.add(itemClassName); // Usa el nombre de clase pasado
                     const img = document.createElement('img');
                     img.src = url;
-                    img.alt = 'Imagen de carrusel'; // Generic alt text
-                    // Add onerror for fallback image
+                    img.alt = 'Imagen de carrusel'; // Texto alternativo genérico
+                    // Añade onerror para la imagen de respaldo
                     img.onerror = function() { this.onerror=null; this.src='https://placehold.co/250x350/CCCCCC/FFFFFF/png?text=Error'; };
                     item.appendChild(img);
                     track.appendChild(item);
                 });
 
-                // Calculate the width for the animation dynamically based on the first item's width
-                // This assumes all images have the same width as defined in CSS for .carousel-item-collection
-                // and that the first item exists.
+                // Calcula el ancho para la animación dinámicamente basándose en el ancho del primer elemento
+                // Esto asume que todas las imágenes tienen el mismo ancho definido en CSS para .carousel-item-collection
+                // y que el primer elemento existe.
                 const firstItem = track.querySelector(`.${itemClassName}`);
-                const singleItemWidth = firstItem ? firstItem.offsetWidth : 250; // Default if not found
+                const singleItemWidth = firstItem ? firstItem.offsetWidth : 250; // Valor predeterminado si no se encuentra
                 const totalOriginalWidth = numImages * singleItemWidth;
 
-                // Create a dynamic stylesheet to update the animation
+                // Crea una hoja de estilos dinámica para actualizar la animación
                 const styleId = `scrollRightToLeft-${trackId}-style`;
                 let styleSheet = document.getElementById(styleId);
                 if (!styleSheet) {
@@ -1227,7 +1229,7 @@
                 `;
             }
 
-            // Image URLs for the history carousel
+            // URLs de imágenes para el carrusel de historia
             const historyImageUrls = [
                 "https://placehold.co/400x300/A2D9CE/000000?text=Historia+1",
                 "https://placehold.co/400x300/82E0AA/000000?text=Historia+2",
@@ -1241,11 +1243,11 @@
                 "https://placehold.co/400x300/0E3E21/000000?text=Historia+10"
             ];
 
-            // Call the function for each carousel with the specified image URLs
+            // Llama a la función para cada carrusel con las URLs de imagen especificadas
             setupCarousel('aulasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-02-optimiza-aulas.png"], 10, 20);
             setupCarousel('cienciasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-01-alero-ciencias.png"], 10, 20);
             setupCarousel('sociedadCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-03-esas%20cosas-sociedad.png"], 10, 20);
-            setupCarousel('historyCarouselTrack', 'carousel-item-history', historyImageUrls, historyImageUrls.length, 30); // Longer duration for history
+            setupCarousel('historyCarouselTrack', 'carousel-item-history', historyImageUrls, historyImageUrls.length, 30); // Mayor duración para la historia
         });
     </script>
 </body>
