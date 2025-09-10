@@ -1807,8 +1807,6 @@ header .space-x-2 > :not([hidden]) ~ :not([hidden]) {
         let player; // Variable global para el reproductor de YouTube
         let isPlayerReady = false; // Nueva bandera para verificar si el reproductor de YouTube está listo
 
-        iframe.contentWindow.postMessage(mensaje, 'https://www.youtube.com');
-
         // Esta función se ejecuta automáticamente cuando la API de Iframe de YouTube se carga.
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
