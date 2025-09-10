@@ -863,12 +863,7 @@ header .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   list-style: none;   /* elimina las viñetas */
   margin: 0;          /* quita margen extra */
   padding: 0;         /* quita padding por defecto */
-  margin-right: 50px;
 }
-#hamburger-button {
-  margin-right: 25px;
-}
-
         /* --- IMAGEN FLOTANTE (NUEVOS ESTILOS) --- */
         #floating-image {
             position: fixed;
