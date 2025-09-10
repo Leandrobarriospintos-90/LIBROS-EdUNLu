@@ -1,698 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aniversario Editorial Universitaria</title>
-    <!-- Tailwind CSS CDN for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Inter font -->
+    <title>10 Aniversario EdUNLu</title>
+    <meta name="description" content="Sitio conmemorativo del 10° aniversario de la Editorial de la Universidad Nacional de Luján (EdUNLu). Un recorrido por su historia, publicaciones, autores y aportes a la cultura y el conocimiento.">
+    <meta name="keywords" content="10 aniversario EdUNLu, Editorial Universidad Nacional de Luján, EdUNLu, aniversario editorial universitaria, historia EdUNLu, libros Universidad Nacional de Luján, publicaciones académicas Luján, cultura y conocimiento UNLu, autores EdUNLu, colección de libros universitarios, difusión del conocimiento UNLu, editorial universitaria Argentina, décimo aniversario EdUNLu">
+    <meta name="author" content="EdUNLu">
+    <meta name="robots" content="index, follow">
+    <!-- Google Fonts para la fuente Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- YouTube Iframe Player API -->
+    <!-- API de Iframe de YouTube Player -->
     <script src="https://www.youtube.com/iframe_api"></script>
-    <style>
-        /* --- ESTILOS GENERALES Y RESETEO --- */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif; /* Usando Inter como base para todo el body */
-            color: #fff;
-            background-color: #0da353; /* Color de fondo inicial para la sección de inicio */
-            overflow-x: hidden; /* Evita el scroll horizontal */
-            overscroll-behavior-y: none; /* Evita el efecto "rebote" al final del scroll */
-            transition: background-color 0.8s ease; /* Transición suave para el cambio de color de fondo */
-        }
-
-        /* Custom CSS for 3D Slider effect - preserving original logic */
-        .banner {
-            width: 100%;
-            height: 100vh;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(to bottom, #FFFFFF, #F0FFF0); /* Gradient background updated */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .banner .slider {
-            position: absolute;
-            width: 200px; /* Base width of each book cover */
-            height: 280px; /* Base height of each book cover */
-            top: 15%; /* Adjusted for better vertical centering */
-            left: calc(50% - 100px); /* Center horizontally */
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            animation: autoRun 20s linear infinite; /* Animation for automatic rotation */
-            z-index: 20; /* Aumentado el z-index para que el slider esté por encima del logo */
-        }
-
-        @keyframes autoRun {
-            from {
-                transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
-            }
-            to {
-                transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
-            }
-        }
-
-        .banner .slider .item {
-            position: absolute;
-            inset: 0 0 0 0;
-            /* Calculates position and depth for 3D effect based on CSS variables */
-            transform:
-                rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-                translateZ(550px); /* Distance from the center of the circle */
-            border-radius: 8px; /* Rounded corners for book covers */
-            overflow: hidden; /* Ensure image doesn't spill out */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-            transition: transform 0.5s ease-out; /* Smooth transition for potential future interactions */
-        }
-
-        .banner .slider .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures images cover the item area */
-            border-radius: 8px; /* Apply rounded corners to images too */
-            transition: opacity 0.5s ease-in-out; /* Added for smooth transitions */
-        }
-
-        .banner .content {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(1400px, 100vw);
-            height: max-content;
-            padding-bottom: 80px; /* Space from bottom */
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1;
-        }
-
-        .banner .content .author-info {
-            text-align: right;
-            max-width: 250px;
-            padding-right: 20px;
-        }
-
-        .banner .content .author-info h2 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #444;
-        }
-        .banner .content .author-info p {
-            font-size: 1.1em;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        /* Responsive adjustments for banner */
-        @media screen and (max-width: 1023px) {
-            .banner .slider {
-                width: 160px;
-                height: 220px;
-                left: calc(50% - 80px);
-                top: 10%;
-            }
-            .banner .slider .item {
-                transform:
-                    rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-                    translateZ(300px);
-            }
-            .banner .content .author-info {
-                text-align: center;
-                max-width: unset;
-                width: 100%;
-                padding: 0 30px;
-                margin-top: 30px;
-            }
-        }
-
-        @media screen and (max-width: 767px) {
-            .banner {
-                height: 80vh;
-            }
-            .banner .slider {
-                width: 120px;
-                height: 180px;
-                left: calc(50% - 60px);
-                top: 8%;
-            }
-            .banner .slider .item {
-                transform:
-                    rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg))
-                    translateZ(200px);
-            }
-            .banner .content {
-                padding-bottom: 40px;
-            }
-            .banner .content .author-info h2 {
-                font-size: 1.8em;
-            }
-            .banner .content .author-info p {
-                font-size: 0.9em;
-            }
-        }
-
-        /* Timeline specific styles */
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: #e2e8f0; /* Tailwind gray-200 */
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-
-        .timeline-container {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -17px;
-            background-color: #cbd5e1; /* Tailwind gray-300 */
-            border: 4px solid #0da353; /* Changed to green! */
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .left-timeline {
-            left: 0;
-        }
-
-        .right-timeline {
-            left: 50%;
-        }
-
-        .left-timeline::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid white;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-        }
-
-        .right-timeline::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-        }
-
-        .right-timeline::after {
-            left: -16px;
-        }
-
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: white;
-            position: relative;
-            border-radius: 6px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Media queries for timeline responsiveness */
-        @media screen and (max-width: 768px) {
-            .timeline::after {
-                left: 31px;
-            }
-            .timeline-container {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .timeline-container::before {
-                left: 60px;
-                border: medium solid white;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
-            }
-            .left-timeline::after, .right-timeline::after {
-                left: 15px;
-            }
-            .right-timeline {
-                left: 0%;
-            }
-        }
-
-        /* --- IMAGEN FLOTANTE (NUEVOS ESTILOS) --- */
-        #floating-image {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            max-width: 30vw;
-            max-height: 40vh;
-            object-fit: contain;
-            z-index: 1000;
-            transition: opacity 0.4s ease-in-out;
-            pointer-events: none; /* La imagen no interfiere con el ratón */
-        }
-
-        .fade-out {
-            opacity: 0;
-        }
-
-        /* --- ESTRUCTURA DE SECCIONES Y CONTENIDO (NUEVOS ESTILOS) --- */
-        .section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 2rem;
-            box-sizing: border-box;
-        }
-
-        .content-wrapper {
-            display: flex;
-            justify-content: space-between; /* Restaurado para espaciar text-left y text-right */
-            align-items: center;
-            width: 100%;
-            max-width: 1400px; /* Ancho máximo para el contenido */
-        }
-
-        /* Nueva regla para centrar el content-wrapper específicamente en la sección de inicio */
-        #inicio .content-wrapper {
-            flex-direction: column; /* Apila el contador y el nuevo texto */
-            justify-content: center; /* Centra horizontal y verticalmente el contenido */
-            text-align: center; /* Asegura que el texto dentro esté centrado */
-        }
-        
-        .text-left {
-            flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
-            padding: 2rem;
-            text-align: left; /* Alineación del texto a la izquierda */
-        }
-
-        .text-right {
-            flex-basis: 35%; /* Cada caja de texto ocupa el 35% del espacio */
-            padding: 2rem;
-            text-align: right; /* Alineación del texto a la derecha */
-        }
-
-        /* Styles for the new collection carousels */
-        .carousel-container-collection {
-            width: 250px; /* Fixed width for the carousel */
-            height: 350px; /* Fixed height for the carousel */
-            overflow: hidden;
-            margin: 0 2rem;
-            flex-shrink: 0;
-            border-radius: 8px;
-            /* No box-shadow as requested */
-        }
-
-        .carousel-track-collection {
-            display: flex;
-            white-space: nowrap; /* Keep items in a single line */
-            height: 100%; /* Ensure track takes full height of container */
-        }
-
-        .carousel-item-collection {
-            flex: 0 0 auto; /* Prevent items from shrinking or growing */
-            width: 250px; /* Each item takes the container width */
-            height: 100%; /* Ensure item takes full height */
-            display: inline-block; /* For older browser compatibility with white-space: nowrap */
-        }
-
-        .carousel-item-collection img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensures image covers the area, cropping if necessary */
-            border-radius: 8px;
-        }
-
-
-        .section h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-            margin: 0;
-            line-height: 1.2; /* Reducido el interlineado para los títulos */
-            color: #fff; /* Texto blanco para los títulos de sección */
-        }
-
-        .section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-            margin: 0;
-            color: #fff; /* Texto blanco para los párrafos de sección */
-        }
-
-        /* Styles for the new counter */
-        .counter-display {
-            font-size: 5rem; /* Large font size for visibility */
-            font-weight: 800; /* Extra bold */
-            color: #fff; /* White color */
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-            margin: 0 2rem; /* Add some horizontal margin */
-            flex-shrink: 0; /* Prevent it from shrinking */
-            text-align: center; /* Centrar el texto dentro del contador */
-        }
-
-        /* Responsive adjustments for collections text */
-        @media (max-width: 750px) { /* Ajustado a 750px como se solicitó */
-            .counter-display {
-                font-size: 3rem;
-                margin-top: 1rem; /* Space from stacked text */
-                margin-bottom: 1rem;
-            }
-            .content-wrapper {
-                flex-direction: column; /* Stack elements vertically */
-                justify-content: center;
-                text-align: center;
-            }
-
-            .text-left, .text-right {
-                flex-basis: auto; /* Ancho automático */
-                text-align: center; /* Centrar el texto para móviles */
-                padding: 1rem;
-            }
-
-            .carousel-container-collection {
-                width: 180px; /* Smaller carousel on mobile */
-                height: 250px; /* Adjust height for mobile */
-                margin: 1rem 0; /* Adjust margin for stacking */
-            }
-            .carousel-item-collection {
-                width: 180px; /* Adjust item width for mobile */
-            }
-
-            .section h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .section p {
-                font-size: 1rem;
-            }
-
-            #floating-image {
-                width: 180px;
-                height: 180px;
-                max-width: 45vw;
-                max-height: 45vh;
-            }
-        }
-
-        /* New styles for the photo wall */
-        .photo-wall {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
-            gap: 0; /* No margin between images */
-            width: 100%; /* Full width of its parent */
-            padding: 0; /* No padding for the photo wall itself */
-        }
-
-        .photo-wall img {
-            width: 100%;
-            height: 250px; /* Increased height for images in the grid */
-            object-fit: cover; /* Crop images to fit */
-            border-radius: 0; /* Remove rounded corners for a seamless look */
-            box-shadow: none; /* Remove shadow for a seamless look */
-            transition: none; /* Remove transition for a seamless wall */
-        }
-
-        .photo-wall img:hover {
-            transform: none; /* Remove hover effect */
-            box-shadow: none; /* Remove hover effect */
-        }
-
-        /* Responsive adjustments for photo wall */
-        @media (max-width: 1024px) { /* Adjust for tablets */
-            .photo-wall {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-                gap: 0; /* No margin */
-            }
-            .photo-wall img {
-                height: 200px; /* Adjusted height for tablets */
-            }
-        }
-
-        @media (max-width: 768px) { /* Adjust for mobile */
-            .photo-wall {
-                grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
-                gap: 0; /* No margin */
-            }
-            .photo-wall img {
-                height: 180px; /* Adjusted height for mobile */
-            }
-        }
-
-
-        /* --- COLORES DE FONDO PARA CADA SECCIÓN (NUEVOS ESTILOS) --- */
-        #inicio { background-color: #0da353; }
-        #nosotros { background-color: #006bcd; /* Azul para Aulas Universitarias */ }
-        #servicios { background-color: #FF0000; /* Rojo para Ciencias */ }
-        #galeria { background-color: #ffc300; /* Amarillo para Sociedad en Movimiento */ }
-        #our-history-images {
-            background-color: #FFFFFF; /* Cambiado a blanco para esta sección */
-            color: #2F4F4F; /* Ajusta el color del texto para que contraste con el blanco */
-            padding: 0; /* Eliminar padding para que el muro de fotos ocupe todo el ancho */
-            min-height: 100vh; /* Allow section to grow */
-        }
-        
-        /* Ensure timeline section background is white */
-        #timeline-section {
-            background-color: #FFFFFF;
-        }
-
-        /* New section specific styles */
-        #mission-statement {
-            background-color: #0da353; /* Color de fondo actualizado a #0da353 */
-            color: #fff; /* White text */
-            text-align: center;
-            padding: 80px 2rem; /* Add some padding */
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #mission-statement p {
-            max-width: 800px; /* Limit width for readability */
-            font-size: 1.5rem; /* Larger font size */
-            line-height: 1.8;
-            margin: 0 auto;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-        }
-        @media (max-width: 768px) {
-            #mission-statement p {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Video section styles */
-        #video-section {
-            background-color: #333; /* Dark background for video section */
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0; /* Remove padding as video will take full width */
-            box-sizing: border-box;
-            overflow: hidden; /* Ensure no overflow */
-        }
-
-        .video-responsive {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* New styles for the scroll-to-top button */
-        #scroll-to-top-btn {
-            display: none; /* Hidden by default */
-            position: fixed; /* Fixed position */
-            bottom: 20px; /* 20px from the bottom */
-            right: 20px; /* 20px from the right */
-            z-index: 99; /* High z-index to be on top */
-            border: none; /* No border */
-            outline: none; /* No outline */
-            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% transparency */
-            color: white; /* White text/icon */
-            cursor: pointer; /* Pointer cursor on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 0; /* Square shape (removed border-radius: 50%) */
-            font-size: 22px; /* Icon size */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
-        }
-
-        #scroll-to-top-btn:hover {
-            background-color: rgba(0, 0, 0, 0.7); /* Darker black on hover (70% transparency) */
-            transform: scale(1.05); /* Slightly enlarge on hover */
-        }
-
-        /* Optional: adjust for smaller screens if needed */
-        @media (max-width: 600px) {
-            #scroll-to-top-btn {
-                bottom: 15px;
-                right: 15px;
-                padding: 12px;
-                font-size: 18px;
-            }
-        }
-
-        /* Hamburger menu styles */
-        .hamburger-menu-button {
-            display: none; /* Hidden by default */
-            font-size: 2rem;
-            background: none;
-            border: none;
-            color: #333;
-            cursor: pointer;
-            z-index: 40; /* Ensure it's above other header elements */
-        }
-
-        .mobile-nav-container {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 35; /* Above header but below floating image */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s ease-in-out;
-            opacity: 0;
-            pointer-events: none; /* Prevents interaction when hidden */
-        }
-
-        .mobile-nav-container.open {
-            display: flex;
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .mobile-nav-container ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-        }
-
-        .mobile-nav-container ul li {
-            margin: 1.5rem 0;
-        }
-
-        .mobile-nav-container ul li a {
-            color: #fff;
-            font-size: 1.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .mobile-nav-container ul li a:hover {
-            color: #0da353; /* Green on hover */
-        }
-
-        @media (max-width: 700px) {
-            .hamburger-menu-button {
-                display: block; /* Show hamburger on small screens */
-            }
-            header nav {
-                display: none; /* Hide desktop nav on small screens */
-            }
-        }
-    </style>
+    <!-- Carga de Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--FAVICON-->    
+    <link rel="icon" href="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/f-10-aniversario.svg" type="image/x-icon">
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
-    <!-- Header Section -->
+    <!-- Sección de Encabezado -->
     <header class="w-full p-4 bg-white shadow-md flex justify-between items-center z-30 relative">
         <div class="flex items-center space-x-2">
-            <!-- Replaced h1 with an img tag for the logo, now also a link to the top of the page -->
-            <a href="#">
-                <img src="https://leandrobarriospintos-90.github.io/LIBROS-EdUNLu/entradas/marca-completo-original-edunlu-svg.svg"
+            <!-- logo SVG -->
+            <a href="https://www.edunlu.unlu.edu.ar" target="_blank">
+                <img src="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/edunlu-logo.svg"
                     alt="Logo Editorial Universitaria"
-                    class="h-10 w-auto"> <!-- Tailwind classes for height and auto width -->
+                    class="h-10 w-auto">
             </a>
         </div>
-        <!-- Desktop Navigation -->
+        <!-- Navegación de Escritorio -->
         <nav id="desktop-nav">
-            <ul class="flex space-x-4">
-                <li><a href="#video-section" class="text-gray-600 hover:text-blue-600 transition duration-300">10 AÑOS</a></li>
-                <li><a href="#inicio" class="text-gray-600 hover:text-blue-600 transition duration-300">Colecciones</a></li>
-                <li><a href="#timeline-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Historia</a></li>
-                <li><a href="#cta-section" class="text-gray-600 hover:text-blue-600 transition duration-300">Catálogo</a></li>
+            <ul class="flex margen-head">
+                <li><a href="#video-section" class="link text-gray-600 hover:text-green-600 transition duration-300">10 AÑOS</a></li>
+                <li><a href="#carta-director" class="link text-gray-600 hover:text-green-600 transition duration-300">Carta</a></li>
+                <li><a href="#inicio" class="link text-gray-600 hover:text-green-600 transition duration-300">Colecciones</a></li>
+                <li><a href="#timeline-section" class="link text-gray-600 hover:text-green-600 transition duration-300">Historia</a></li>
+                <li><a href="#catalog-section" class="link text-gray-600 hover:text-green-600 transition duration-300">Catálogo</a></li>
             </ul>
         </nav>
-        <!-- Hamburger Menu Button -->
+        <!-- Botón de Menú de Hamburguesa -->
         <button class="hamburger-menu-button" id="hamburger-button" aria-label="Toggle navigation">
-            &#9776; <!-- Unicode for hamburger icon -->
+            &#9776; <!-- Unicode para el icono de hamburguesa -->
         </button>
     </header>
 
-    <!-- Mobile Navigation Menu -->
+    <!-- Menú de Navegación Móvil -->
     <div class="mobile-nav-container" id="mobile-nav-container">
         <ul id="mobile-nav-links">
             <li><a href="#video-section">10 AÑOS</a></li>
+            <li><a href="#carta-director">Carta</a></li>
             <li><a href="#inicio">Colecciones</a></li>
             <li><a href="#timeline-section">Historia</a></li>
-            <li><a href="#cta-section">Catálogo</a></li>
+            <li><a href="#catalog-section">Catálogo</a></li>
         </ul>
     </div>
 
-    <!-- Main Banner Section with 3D Slider -->
+    <!-- Sección Principal del Banner con Slider 3D -->
     <div class="banner">
-        <!-- SVG Logo in the center of the covers -->
-        <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/aniversario-edunlu.png"
+        <!-- Logo SVG en el centro de las portadas -->
+        <img src="https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-aniversario-edunlu.png"
             alt="Logo Editorial Universitaria"
             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[21.6rem] h-[21.6rem] object-contain"
             style="z-index: 10;"> <!-- Z-index ajustado para que el logo esté detrás del slider cuando las portadas están al frente -->
 
-        <!-- Content Area below the slider - only author info remains -->
+        <!-- Área de Contenido debajo del slider - solo queda la información del autor -->
         <div class="content">
             <div class="author-info flex flex-col items-center md:items-end">
                 <h2 class="text-3xl font-bold" style="color: #0da353;">10 AÑOS</h2>
@@ -701,41 +74,41 @@
                 </p>
             </div>
         </div>
-        <!-- 3D Slider Container -->
+        <!-- Contenedor del Slider 3D -->
         <div class="slider" id="bookSlider">
-            <!-- Book Cover Items (replace with your actual book cover images) -->
-            <!-- The '--position' CSS variable is crucial for the 3D rotation -->
+            <!-- Elementos de Portada de Libro (reemplazar con las imágenes reales de sus portadas) -->
+            <!-- La variable CSS '--position' es crucial para la rotación 3D -->
             <div class="item" style="--position: 1; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif" alt="Portada Libro 1">
+                <img src="#" alt="Portada Libro 1">
             </div>
             <div class="item" style="--position: 2; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif" alt="Portada Libro 2">
+                <img src="#" alt="Portada Libro 2">
             </div>
             <div class="item" style="--position: 3; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif" alt="Portada Libro 3">
+                <img src="#" alt="Portada Libro 3">
             </div>
             <div class="item" style="--position: 4; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif" alt="Portada Libro 4">
+                <img src="#" alt="Portada Libro 4">
             </div>
             <div class="item" style="--position: 5; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif" alt="Portada Libro 5">
+                <img src="#" alt="Portada Libro 5">
             </div>
             <div class="item" style="--position: 6; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif" alt="Portada Libro 6">
+                <img src="#" alt="Portada Libro 6">
             </div>
             <div class="item" style="--position: 7; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif" alt="Portada Libro 7">
+                <img src="#" alt="Portada Libro 7">
             </div>
             <div class="item" style="--position: 8; --quantity: 8;">
-                <img src="https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif" alt="Portada Libro 8">
+                <img src="#" alt="Portada Libro 8">
             </div>
         </div>
     </div>
 
     <!-- La imagen flotante sigue siendo un único elemento global -->
     <img id="floating-image"
-                src="https://leandrobarriospintos-90.github.io/catalogo-online/logos/dark-edunlu-svg.svg"
-                alt="Ilustración de la sección actual"
+                src="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/dark-edunlu-svg.svg"
+                alt="marca-de-agua-edunlu"
                 onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF/png?text=Error';">
 
     <main>
@@ -743,11 +116,70 @@
         <section id="video-section">
             <div class="video-responsive">
                 <!-- ID para el reproductor de YouTube API -->
-<iframe width="100%" height="600" src="https://www.youtube.com/embed/9W9kI2wLdjQ?si=PnVLtp06i1G_45e3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>            </div>
+                <iframe id="youtube-player" width="100%" height="100%" src="https://www.youtube.com/embed/XO0fdDLvuTo?si=aN6POh2RGz0Km_jB=1&origin=https://leandrobarriospintos-90.github.io" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Carta del Director -->
+        <section id="carta-director" class="flex-col text-center py-16 bg-section-carta">
+            <div class="director-letter-container">
+                <div class="text-xl text-yellow-900 mt-0 mb-5 font-semibold">
+                    <p class="item-center"><!--<i class="fa-solid fa-pen-nib"></i>--> Palabras del Director</p>
+                </div>
+                <div class="director-letter-title-trigger" id="directorLetterTrigger">
+                    <h2 class="text-[32px] text-white mt-0 mb-0">10 AÑOS DESDE EL PRIMER LIBRO EDITADO</h2>
+                    <span class="arrow-icon">&#9660;</span> <!-- Flecha hacia abajo -->
+                    <!--<i class="fa-solid fa-chevron-down arrow-icon animate-bounce ..."></i> -->
+                </div>
+                <div class="collapsible-letter-content" id="collapsibleLetterContent">
+                    <!-- Contenido de la carta -->
+                    <p class="text-center font-bold">Celebrar también es reconocer</p>
+                    <hr class="hr">
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        Parece que fue ayer cuando dábamos esos primeros pasos, cargados de ilusión y con la firme
+                        convicción de que la universidad debía ser también un espacio de creación y difusión del
+                        conocimiento a través del libro.
+                    </p>
+
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        En esta década, nuestra editorial se ha convertido en un pilar fundamental. No solo es un puente
+                        entre la investigación y la sociedad, sino también una ventana que permite a nuestros docentes,
+                        investigadores y extensionistas, compartir sus saberes y reflexiones más allá de las aulas. Cada
+                        libro publicado es un testimonio del rigor académico, la creatividad y el compromiso de nuestra
+                        comunidad universitaria con la generación de conocimiento relevante y pertinente.
+                    </p>
+
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        Hoy celebramos una década de logros, pero también miramos hacia el futuro con renovado entusiasmo. Los desafíos son muchos en el mundo editorial actual, pero seguiremos adaptándonos, explorando nuevos formatos, nuevas temáticas, y manteniendo nuestro compromiso con la excelencia académica y la difusión del conocimiento.
+                    </p>
+
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        En una editorial universitaria los logros no se miden en función de ganancias o pérdidas
+                        económicas, sino con el hecho de ser un servicio de apoyo a la comunidad universitaria y a la
+                        sociedad a la cual pertenece.
+                    </p>
+
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        EdUNLu como editorial universitaria conecta a la Universidad con su comunidad, sirviendo como
+                        medio de comunicación e integración.
+                    </p>
+
+                    <p class="text-lg text-gray-800 leading-relaxed mb-4">
+                        Que estos diez años sean solo el prólogo de una larga y fructífera historia para el sello editorial de
+                        la Universidad Nacional de Luján.
+                    </p>
+                    <p class="firma-dir text-gray-800 leading-relaxed mt-4">
+                        <strong>Pablo Lulic</strong>
+                        <br>
+                        <span style="font-weight: regular;">Director de Editorial e Imprenta, EdUNLu</span>
+                    </p>
+                </div>
+            </div>
         </section>
 
         <section id="inicio" class="section">
             <div class="content-wrapper">
+                <h3 class="text-3xl text-white font-semibold mb-5">Actualmente</h3>
                 <!-- Contador en el centro -->
                 <div class="counter-display" id="counterDisplay">
                     0
@@ -757,10 +189,10 @@
             </div>
         </section>
 
-        <section id="nosotros" class="section">
+        <section id="aula" class="flex items-center justify-center h-[850px]">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Colección Aulas Universitarias</h1>
+                    <h1 class="collection-h1">Colección Aulas Universitarias</h1>
                 </div>
                 <!-- Carrusel para Colección Aulas Universitarias -->
                 <div class="carousel-container-collection">
@@ -768,16 +200,16 @@
                         <!-- Imágenes cargadas por JavaScript -->
                     </div>
                 </div>
-                <div class="text-left">
-                    <p>Textos esenciales para la formación académica y el desarrollo profesional en diversas disciplinas. Son libros científicos creados como material de enseñanza para estudiantes, cuyo contenido también puede ser aprovechado por alumnos de otras instituciones de educación superior.</p>
+                <div class="text-left collection-p">
+                    <p><strong>Manuales y Material Pedagógico</strong></p><p>Son obras fundamentales para la formación académica y el éxito profesional. Estos libros, creados como material de enseñanza, son una herramienta clave para nuestros estudiantes, y su contenido riguroso es de gran utilidad para la comunidad académica de otras instituciones de educación superior.</p>
                 </div>
             </div>
         </section>
 
-        <section id="servicios" class="section">
+        <section id="ciencia" class="flex items-center justify-center h-[850px] edunlu-marca">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Colección Ciencias</h1>
+                    <h1 class="collection-h1">Colección Ciencias</h1>
                 </div>
                 <!-- Carrusel para Colección Ciencias -->
                 <div class="carousel-container-collection">
@@ -785,16 +217,16 @@
                         <!-- Imágenes cargadas por JavaScript -->
                     </div>
                 </div>
-                <div class="text-left">
-                    <p>Investigaciones de vanguardia y divulgación científica en campos como la biología, física y química. Son libros científicos que resultan de la actividad de investigación, los debates y del intercambio académico. Es una herramienta central para concretar el aporte científico de la universidad.</p>
+                <div class="text-left collection-p">
+                    <p><strong>Investigación y Divulgación Científica</strong></p><p>Investigaciones en áreas clave como la biología, la física, la química y otras disciplinas se materializan en estas publicaciones, resultado de una intensa labor científica, el intercambio académico y el debate constante en nuestra comunidad. Constituyen el principal medio para difundir y consolidar el aporte científico de la universidad al servicio de la sociedad.</p>
                 </div>
             </div>
         </section>
 
-        <section id="galeria" class="section">
+        <section id="sociedad" class="flex items-center justify-center h-[850px] edunlu-marca">
             <div class="content-wrapper">
                 <div class="text-left">
-                    <h1>Colección Sociedad en Movimiento</h1>
+                    <h1 class="collection-h1">Colección Sociedad en Movimiento</h1>
                 </div>
                 <!-- Carrusel para Colección Sociedad en Movimiento -->
                 <div class="carousel-container-collection">
@@ -802,20 +234,35 @@
                         <!-- Imágenes cargadas por JavaScript -->
                     </div>
                 </div>
+                <div class="text-left collection-p">
+                    <p><strong>Sociedad, Cultura y Patrimonio</strong></p><p>Una colección de obras que analizan y reflexionan sobre las transformaciones sociales, culturales y políticas de nuestro tiempo. Esta línea editorial abarca desde ensayos y textos literarios hasta materiales dedicados a la divulgación y puesta en valor del patrimonio cultural e institucional.</p>
+                </div>
+            </div>
+        </section>
+        <section id="serie-vida" class="flex items-center justify-center h-[850px] edunlu-marca">
+            <div class="content-wrapper">
                 <div class="text-left">
-                    <p>Obras que analizan y reflexionan sobre los cambios sociales, culturales y políticos contemporáneos. Incluye textos literarios y materiales de divulgación del patrimonio cultural e institucional.</p>
+                    <h1 class="collection-h1">Serie Historias de Vida</h1>
+                </div>
+                <!-- Carrusel para Colección Sociedad en Movimiento -->
+                <div class="carousel-container-collection">
+                    <div class="carousel-track-collection" id="serievidaCarouselTrack">
+                        <!-- Imágenes cargadas por JavaScript -->
+                    </div>
+                </div>
+                <div class="text-left collection-p">
+                    <p><strong>La Serie Historias de Vida,</strong> parte de la Colección Sociedad en Movimiento, reúne relatos en primera o tercera persona donde se comparten experiencias, trayectorias y perspectivas, ofreciendo un testimonio único sobre la vida en sociedad.</p>
                 </div>
             </div>
         </section>
 
         <!-- Nueva sección: Nuestra Historia en Imágenes (Muro de fotografías) -->
         <section id="our-history-images" class="section flex-col text-center justify-center">
-            <!-- Título eliminado según la solicitud del usuario -->
-            <div class="photo-wall">
-                <img src="https://placehold.co/400x300/ADD8E6/000000?text=Foto+Historia+1" alt="Foto de la historia 1" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
-                <img src="https://placehold.co/400x300/90EE90/000000?text=Foto+Historia+2" alt="Foto de la historia 2" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
-                <img src="https://placehold.co/400x300/FFD700/000000?text=Foto+Historia+3" alt="Foto de la historia 3" onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF/png?text=Error';">
-               </div>
+            <div class="carousel-container-history">
+                <div class="carousel-track-history" id="historyCarouselTrack">
+                    <!-- Imágenes cargadas por JavaScript -->
+                </div>
+            </div>
         </section>
     </main>
 
@@ -826,33 +273,87 @@
             <div class="timeline">
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2014: Creación</h3>
-                        <p class="text-gray-600">Se aprueba el Reglamento de Funcionamiento de la Editorial EdUNLu.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2002 | Registro</h3>
+                        <p class="text-gray-600">Se tramita el sello editorial de la Universidad Nacional de Luján ante la Dirección Nacional del Derecho de Autor, mediante el <strong>Expediente N° 213320</strong> (fecha: 24 de septiembre).</p>
                     </div>
                 </div>
                 <div class="timeline-container right-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2015: Primera Colección</h3>
-                        <p class="text-gray-600">Lanzamiento de la "Colección Aulas Universitarias", un pilar fundamental para la enseñanza.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2010 | Proyección</h3>
+                        <p class="text-gray-600">Se realizan deliberaciones institucionales que proyectan la creación formal de la editorial.</p>
                     </div>
-                    
                 </div>
+                <a href="https://drive.google.com/file/d/1u46PjHJ08bBAoupMf_hk53YlCg7pXkT1/view?usp=sharing" target="_blank" class="link">
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2018: Expansión Digital</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2011 | Creación y consejo</h3>
+                        <p class="text-gray-600">Mediante la <span style="font-weight: bold;">Resolución HCS 233/11,</span> se crea oficialmente EdUNLu como instrumento de la política de ediciones de la UNLu, en el ámbito de la Secretaría del Rectorado.<br>También se crea el <strong>Consejo Editorial Universitario (CEU),</strong> órgano de acompañamiento institucional.</p>
+                        <div class="mt-5"><a href="https://drive.google.com/file/d/1u46PjHJ08bBAoupMf_hk53YlCg7pXkT1/view?usp=sharing" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Ver RES 233/11</a></div>
+                    </div>
+                </div>
+                </a>
+                <a href="https://drive.google.com/file/d/1mj3XfEu9AApjYc29DUTTBH9kZ7_l-5jj/view?usp=sharing" target="_blank" class="link">
+                <div class="timeline-container right-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2014 | Reglamento</h3>
+                        <p class="text-gray-600">Se aprueba el Reglamento de Funcionamiento de la Editorial EdUNLu, consolidando su marco operativo.</p>
+                        <div class="mt-5"><a href="https://drive.google.com/file/d/1mj3XfEu9AApjYc29DUTTBH9kZ7_l-5jj/view?usp=sharing" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Ver reglamento</a></div>
+                    </div>
+                </div>
+                </a>
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2015 | Primeras ediciones</h3>
+                        <p class="text-gray-600">Este año se publican los dos primeros libros con sello editorial: <a href="https://www.edunlu.unlu.edu.ar/?q=node/70" class="bg-green-100 text-gray-600 hover:bg-green-400 transition duration-300 underline underline-offset-2" target="_blank"><i>Ingreso universitario. Políticas y estrategias para la inclusión: nuevas complejidades, nuevas respuestas</i></a> y <a href="https://www.edunlu.unlu.edu.ar/?q=node/56" class="bg-green-100 text-gray-600 hover:bg-green-400 transition duration-300 underline underline-offset-2" target="_blank"><i>Dinámica demográfica de la niñez y la adolescencia en la Argentina,</i></a> ambos como parte de la <strong>colección Ciencias</strong>. Asimismo, se edita <a href="https://www.edunlu.unlu.edu.ar/?q=node/25" class="bg-green-100 text-gray-600 hover:bg-green-400 transition duration-300 underline underline-offset-2" target="_blank"><i>Jornadas Argentinas de Geotecnología 2015. Tecnologías de la información para nuevas formas de gestión del territorio</i></a>, que no integra ninguna colección.</p>
+                    </div>
+                </div>
+                <a href="https://www.edunlu.unlu.edu.ar/?q=node/62" target="_blank" class="link">
+                <div class="timeline-container right-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2016 | Presentación y Librería Universitaria</h3>
+                        <p class="text-gray-600">Se llevó a cabo la presentación de la Editorial de la Universidad Nacional de Luján (EdUNLu) ante la comunidad, junto con la inauguración de la <strong>Librería Universitaria</strong>, en el Hall del Pabellón “Raúl Scalabrini Ortiz” de la Sede Central.</p>
+                        <div class="mt-5"><a href="https://www.edunlu.unlu.edu.ar/?q=node/62" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Ver más</a></div>
+                    </div>
+                </div>
+                </a>
+                <a href="https://www.edunlu.unlu.edu.ar" target="_blank" class="link">
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2016 | Presencia digital</h3>
                         <p class="text-gray-600">Creamos nuestro sitio web y ampliamos nuestra presencia en redes sociales para facilitar el acceso a nuestras publicaciones y fortalecer el vínculo con la comunidad.</p>
+                        <div class="mt-5"><a href="https://www.edunlu.unlu.edu.ar" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Web EdUNLu</a></div>
                     </div>
                 </div>
+                </a>
+                <a href="https://www.edunlu.unlu.edu.ar/?q=node/100" target="_blank" class="link">
                 <div class="timeline-container right-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2020: Reconocimiento</h3>
-                        <p class="text-gray-600"">La editorial recibe un premio nacional por su contribución a la cultura y la investigación.</p>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2017 | El CUBO</h3>
+                        <p class="text-gray-600">Inauguración de <i>El Cubo</i>, el espacio de difusión editorial anexo a la Librería Universitaria, ubicado en el Hall Central del Pabellón “Raúl Scalabrini Ortiz”.</p>
+                        <div class="mt-5"><a href="https://www.edunlu.unlu.edu.ar/?q=node/100" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Ver más</a></div>                    
+                    </div>
+                </div>
+                </a>
+                <a href="https://www.edunlu.unlu.edu.ar/?q=node/106" target="_blank" class="link">
+                <div class="timeline-container left-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2017 | Patio Cultural “Historia de la Escritura”</h3>
+                        <p class="text-gray-600">Inauguración de <i>El Cubo</i>, el espacio de difusión editorial anexo a la Librería Universitaria, ubicado en el Hall Central del Pabellón “Raúl Scalabrini Ortiz”.</p>
+                        <div class="mt-5"><a href="https://www.edunlu.unlu.edu.ar/?q=node/106" target="_blank" class="link inline-block bg-green-600 text-white font-semibold py-2 px-4 shadow-lg hover:bg-green-800 transition duration-300">Ver más</a></div>
+                    </div>
+                </div>
+                </a>
+                <div class="timeline-container right-timeline">
+                    <div class="timeline-content">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2017 - 2025 | Ferias</h3>
+                        <p class="text-gray-600">Participación en ferias municipales, nacionales e internacionales, incluyendo la Feria del Libro de Luján y la Feria Internacional del Libro de Buenos Aires.</p>
                     </div>
                 </div>
                 <div class="timeline-container left-timeline">
                     <div class="timeline-content">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2025: 10 Aniversario</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2025 | 10° Aniversario</h3>
                         <p class="text-gray-600">Celebramos una decada de trayectoria, consolidando nuestro compromiso con el saber.</p>
+                        <!--<div class="mt-5"><a href="#" target="_blank" class="px-4 py-2 text-white animate-[colorChange_1s_infinite_alternate]">Ver más</a></div>-->
                     </div>
                 </div>
             </div>
@@ -863,36 +364,46 @@
     <section id="mission-statement" class="py-16 bg-[#0da353] text-white text-center">
         <div class="container mx-auto px-4">
             <p class="text-2xl leading-relaxed">
-                Seguimos trabajando con compromiso para contribuir al desarrollo del conocimiento, la educación pública y la construcción colectiva de una sociedad más justa y reflexiva, a través de nuestras publicaciones.
+                Trabajamos con compromiso para contribuir al desarrollo del conocimiento, la educación pública y la construcción colectiva de una sociedad más justa y reflexiva, a través de nuestras publicaciones.
             </p>
         </div>
     </section>
 
     <!-- Sección de Llamada a la Acción -->
-    <section id="cta-section" class="py-12 bg-gray-200 text-center">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestro catálogo?</h2>
-        <a href="https://example.com/catalogo.pdf" target="_blank" class="inline-block bg-green-600 text-white text-xl font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition duration-300">
+    <section id="catalog-section" class="py-12 bg-gray-200 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">¿Interesado en nuestras obras?</h2>
+        <a href="https://edunlu-editorial.github.io/libros-edunlu" target="_blank" class="link inline-block bg-green-600 text-white text-xl font-semibold py-3 px-8 shadow-lg hover:bg-green-700 transition duration-300">
             Ver catálogo completo
         </a>
     </section>
 
     <!-- Pie de Página (Footer) -->
-    <footer id="footer-section" class="bg-gray-800 text-white py-12 text-center">
+    <footer id="footer-section" class="bg-section-footer text-white py-12 text-center">
         <div class="container mx-auto px-4">
-            <!-- Título "¡Sumate y seguinos en nuestras redes!" eliminado -->
-            <!-- Enlaces de redes sociales eliminados -->
-            <p class="text-gray-400 text-sm mt-8">
-                &copy; 2025
+            <p class="text-emerald-900 font-semibold text-lg mt-8 mb-4">
+                Podés seguirnos en nuestras redes
             </p>
+                <div class="space-x-8 text-4xl">
+                    <a href="https://www.instagram.com/edunlu_editorial/" target="_blank" class="text-emerald-900 hover:text-pink-500 transition duration-300"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@edunlu5875" target="_blank" class="text-emerald-900 hover:text-red-600 transition duration-300"><i class="fab fa-youtube"></i></a>
+                    <a href="http://www.facebook.com/EdUNLueditorial/" target="_blank" class="text-emerald-900 hover:text-blue-600 transition duration-300"><i class="fab fa-facebook"></i></a>
+                </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-2 mt-8">
+            <img src="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/ext-unlu.png" alt="Marca Extensión UNLu" class="scale-[0.7]">
+            <img src="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/upa-unlu.png" alt="Marca UPA" class="scale-[0.7]">
+            <img src="https://edunlu-editorial.github.io/10-ANIVERSARIO/activos/unlu.png" alt="Marca UNLu" class="scale-[0.7]">
         </div>
     </footer>
 
-    <!-- Floating Scroll-to-Top Button -->
-    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode for an upward arrow -->
+    <!-- Botón flotante para ir arriba -->
+    <button id="scroll-to-top-btn" title="Ir arriba">&#9650;</button> <!-- Unicode para una flecha hacia arriba -->
 
-    <script>
+<script>
         let player; // Variable global para el reproductor de YouTube
         let isPlayerReady = false; // Nueva bandera para verificar si el reproductor de YouTube está listo
+
+        // iframe.contentWindow.postMessage(mensaje, 'https://www.youtube.com');
 
         // Esta función se ejecuta automáticamente cuando la API de Iframe de YouTube se carga.
         function onYouTubeIframeAPIReady() {
@@ -916,67 +427,191 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Define todas las listas de portadas para el slider 3D
+            // Función para mezclar un array (algoritmo de Fisher-Yates)
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]]; // Intercambia elementos
+                }
+            }
+
+
+            // Define una única lista de portadas de libros
             const allBookCovers = [
-                // Lista 1 (portadas iniciales)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/1-g.gif", alt: "Portada Libro 1" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/2-g.gif", alt: "Portada Libro 2" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/3-g.gif", alt: "Portada Libro 3" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/4-g.gif", alt: "Portada Libro 4" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/5-g.gif", alt: "Portada Libro 5" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/6-g.gif", alt: "Portada Libro 6" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/7-g.gif", alt: "Portada Libro 7" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/8-g.gif", alt: "Portada Libro 8" },
-                ],
-                // Lista 2 (ejemplo de nuevas portadas)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/cuenca-g.gif", alt: "Portada Novela A" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/eros-g.gif", alt: "Portada Ensayo B" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esas-g.gif", alt: "Portada Poesía C" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/esc-populares-g.gif", alt: "Portada Historia D" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/estacion-g.gif", alt: "Portada Ciencia E" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/invernales-g.gif", alt: "Portada Arte F" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/miradas-g.gif", alt: "Portada Filosofía G" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/turismo-g.gif", alt: "Portada Biografía H" },
-                ],
-                // Lista 3 (otro ejemplo de nuevas portadas)
-                [
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/9-g.gif", alt: "Portada Infantil I" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/10-g.gif", alt: "Portada Suspense J" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/11-g.gif", alt: "Portada Fantasía K" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/12-g.gif", alt: "Portada Cocina L" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/14-g.gif", alt: "Portada Viajes M" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/15-g.gif", alt: "Portada Negocios N" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/16-g.gif", alt: "Portada Salud O" },
-                    { src: "https://leandrobarriospintos-90.github.io/catalogo-online/tapas/17-g.gif", alt: "Portada Humor P" },
-                ]
+                // Portadas existentes de la lista 1 (8 portadas)
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_1.gif", alt: "Portada Libro 1" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_2.gif", alt: "Portada Libro 2" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_3.gif", alt: "Portada Libro 3" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_4.gif", alt: "Portada Libro 4" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_5.gif", alt: "Portada Libro 5" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_6.gif", alt: "Portada Libro 6" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_7.gif", alt: "Portada Libro 7" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_8.gif", alt: "Portada Libro 8" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_9.gif", alt: "Portada Libro 9" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_10.gif", alt: "Portada Libro 10" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_11.gif", alt: "Portada Libro 11" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_12.gif", alt: "Portada Libro 12" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_13.gif", alt: "Portada Libro 13" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_14.gif", alt: "Portada Libro 14" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_15.gif", alt: "Portada Libro 15" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_16.gif", alt: "Portada Libro 16" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_16-2.gif", alt: "Portada Libro 16-b" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_17.gif", alt: "Portada Libro 17" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_18.gif", alt: "Portada Libro 18" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_19.gif", alt: "Portada Libro 19" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_20.gif", alt: "Portada Libro 20" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_21.gif", alt: "Portada Libro 21" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_22.gif", alt: "Portada Libro 22" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_23.gif", alt: "Portada Libro 23" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_24.gif", alt: "Portada Libro 24" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_25.gif", alt: "Portada Libro 25" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_26.gif", alt: "Portada Libro 26" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_27.gif", alt: "Portada Libro 27" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_28.gif", alt: "Portada Libro 28" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_29.gif", alt: "Portada Libro 29" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_30.gif", alt: "Portada Libro 30" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_31.gif", alt: "Portada Libro 31" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_32.gif", alt: "Portada Libro 32" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_34.gif", alt: "Portada Libro 34" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_35.gif", alt: "Portada Libro 35" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_36.gif", alt: "Portada Libro 36" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_37.gif", alt: "Portada Libro 37" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_38.gif", alt: "Portada Libro 38" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_39.gif", alt: "Portada Libro 39" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_40.gif", alt: "Portada Libro 40" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_41.gif", alt: "Portada Libro 41" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_42.gif", alt: "Portada Libro 42" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_43.gif", alt: "Portada Libro 43" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_44.gif", alt: "Portada Libro 44" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_45.gif", alt: "Portada Libro 45" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_46.gif", alt: "Portada Libro 46" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_47.gif", alt: "Portada Libro 47" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_48.gif", alt: "Portada Libro 48" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_49.gif", alt: "Portada Libro 49" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_50.gif", alt: "Portada Libro 50" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_51.gif", alt: "Portada Libro 51" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_52.gif", alt: "Portada Libro 52" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_53.gif", alt: "Portada Libro 53" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_54.gif", alt: "Portada Libro 54" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_55.gif", alt: "Portada Libro 55" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_56.gif", alt: "Portada Libro 56" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_57.gif", alt: "Portada Libro 57" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_58.gif", alt: "Portada Libro 58" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_59.gif", alt: "Portada Libro 59" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_61.gif", alt: "Portada Libro 61" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_62.gif", alt: "Portada Libro 62" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_63.gif", alt: "Portada Libro 63" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_64.gif", alt: "Portada Libro 64" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_65.gif", alt: "Portada Libro 65" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_66.gif", alt: "Portada Libro 66" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_67.gif", alt: "Portada Libro 67" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_68.gif", alt: "Portada Libro 68" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_69.gif", alt: "Portada Libro 69" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_71.gif", alt: "Portada Libro 71" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_72.gif", alt: "Portada Libro 72" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_73.gif", alt: "Portada Libro 73" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_74.gif", alt: "Portada Libro 74" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_75.gif", alt: "Portada Libro 75" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_76.gif", alt: "Portada Libro 76" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_77.gif", alt: "Portada Libro 77" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_78.gif", alt: "Portada Libro 78" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_79.gif", alt: "Portada Libro 79" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_80.gif", alt: "Portada Libro 80" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_81.gif", alt: "Portada Libro 81" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_82.gif", alt: "Portada Libro 82" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_83.gif", alt: "Portada Libro 83" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_84.gif", alt: "Portada Libro 84" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_85.gif", alt: "Portada Libro 85" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_86.gif", alt: "Portada Libro 86" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_87.gif", alt: "Portada Libro 87" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_88.gif", alt: "Portada Libro 88" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_89.gif", alt: "Portada Libro 89" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_90.gif", alt: "Portada Libro 90" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_91.gif", alt: "Portada Libro 91" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_92.gif", alt: "Portada Libro 92" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_93.gif", alt: "Portada Libro 93" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_94.gif", alt: "Portada Libro 94" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_95.gif", alt: "Portada Libro 95" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_96.gif", alt: "Portada Libro 96" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_97.gif", alt: "Portada Libro 97" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_98.gif", alt: "Portada Libro 98" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_99.gif", alt: "Portada Libro 99" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_100.gif", alt: "Portada Libro 100" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_101.gif", alt: "Portada Libro 101" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_102.gif", alt: "Portada Libro 102" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_103.gif", alt: "Portada Libro 103" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_104.gif", alt: "Portada Libro 104" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_105.gif", alt: "Portada Libro 105" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_106.gif", alt: "Portada Libro 106" },
+                { src: "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a_aniversario_107.gif", alt: "Portada Libro 107" },
+                // AÑADE AQUÍ MÁS OBJETOS { src: "URL_DE_TU_IMAGEN", alt: "Texto alternativo" } PARA TUS OTRAS PORTADAS.
+                // La lista contendrá solo las portadas definidas explícitamente aquí.
+                // Por ejemplo, si quieres 104 portadas en total, puedes añadir 80 más aquí:
+                // { src: "https://tu-dominio.com/mi-portada-1.jpg", alt: "Mi Portada 1" },
+                // { src: "https://tu-dominio.com/mi-portada-2.png", alt: "Mi Portada 2" },
+                // ...
             ];
 
-            let currentListIndex = 0;
+            // La lista se mezcla una vez al inicio, pero cada actualización del slider toma 8 elementos aleatorios de una copia recién mezclada.
+
             const slider = document.getElementById('bookSlider');
+            const numSliderItems = slider.querySelectorAll('.item').length; // Debería ser 8
 
             // Función para actualizar las imágenes del slider 3D
             function updateSliderImages() {
-                currentListIndex = (currentListIndex + 1) % allBookCovers.length;
-                const nextList = allBookCovers[currentListIndex];
+                // Crea una copia de allBookCovers para mezclar sin afectar el orden original
+                let shuffledCovers = [...allBookCovers];
+                shuffleArray(shuffledCovers); // Mezcla la copia
+
+                const nextCoversToDisplay = [];
+                // Selecciona las primeras 'numSliderItems' (8) portadas únicas de la lista mezclada
+                for (let i = 0; i < numSliderItems; i++) {
+                    // Asegura que no intentamos acceder a un índice fuera de los límites si allBookCovers es menor que numSliderItems
+                    if (shuffledCovers[i]) {
+                        nextCoversToDisplay.push(shuffledCovers[i]);
+                    } else {
+                        // Si no hay suficientes imágenes, repite las existentes o usa un marcador de posición
+                        nextCoversToDisplay.push(shuffledCovers[i % shuffledCovers.length]);
+                    }
+                }
+
                 const items = slider.querySelectorAll('.item img');
 
+                // Aplica desenfoque y opacidad 0 para la transición de salida
                 items.forEach(img => {
                     img.style.opacity = '0';
+                    img.style.filter = 'blur(5px)';
                 });
 
+                // Después de un breve retraso, cambia la fuente y desvanece la entrada
                 setTimeout(() => {
                     items.forEach((img, index) => {
-                        if (nextList[index]) {
-                            img.src = nextList[index].src;
-                            img.alt = nextList[index].alt;
+                        if (nextCoversToDisplay[index]) {
+                            img.src = nextCoversToDisplay[index].src;
+                            img.alt = nextCoversToDisplay[index].alt;
                         }
+                        // Restaura la opacidad y elimina el desenfoque para la transición de entrada
                         img.style.opacity = '1';
+                        img.style.filter = 'blur(0px)';
                     });
-                }, 500);
+                }, 500); // Duración de la transición de opacidad y filtro
             }
 
+            // Población inicial del slider con 8 elementos aleatorios
+            const initialItems = slider.querySelectorAll('.item img');
+            let initialShuffledCovers = [...allBookCovers]; // Copia para la mezcla inicial
+            shuffleArray(initialShuffledCovers); // Mezcla la copia inicial
+            for (let i = 0; i < numSliderItems; i++) {
+                if (initialShuffledCovers[i]) {
+                    initialItems[i].src = initialShuffledCovers[i].src;
+                    initialItems[i].alt = initialShuffledCovers[i].alt;
+                } else {
+                    // Maneja el caso si allBookCovers es menor que numSliderItems al inicio
+                    initialItems[i].src = `https://placehold.co/200x280/D3D3D3/000000?text=Libro+${i + 1}`;
+                    initialItems[i].alt = `Portada Libro ${i + 1}`;
+                }
+            }
+            
             if (slider) {
                 slider.addEventListener('animationiteration', (event) => {
                     if (event.animationName === 'autoRun') {
@@ -985,28 +620,29 @@
                 });
             }
 
-            // JavaScript para el cambio de fondo y la imagen flotante
-            const sections = document.querySelectorAll('main .section, #timeline-section, #mission-statement, #video-section, #cta-section, #footer-section'); 
+            // JavaScript para el cambio de color de fondo y la imagen flotante
+            const sections = document.querySelectorAll('main .edunlu-marca, #timeline-section, #mission-statement, #video-section, #catalog-section, #footer-section, #carta-director'); 
             const floatingImage = document.getElementById('floating-image');
             const body = document.body;
             const videoSection = document.getElementById('video-section');
 
-            // Definir los colores de fondo para cada sección por su ID
+            // Define los colores de fondo para cada sección por su ID
             const sectionColors = {
                 'inicio': '#0da353',
-                'nosotros': '#006bcd',
-                'servicios': '#FF0000',
-                'galeria': '#ffc300',
+                'aula': '#006bcd',
+                'ciencia': '#FF0000',
+                'sociedad': '#ffc300',
                 'our-history-images': '#FFFFFF',
                 'timeline-section': '#FFFFFF',
                 'mission-statement': '#0da353',
                 'video-section': '#333333',
-                'cta-section': '#e2e8f0',
+                'carta-director': '#0da353',
+                'catalog-section': '#e2e8f0',
                 'footer-section': '#1a202c'
             };
 
             // Secciones en las que la imagen flotante DEBE ser visible
-            const sectionsForFloatingImageVisibility = ['servicios', 'galeria'];
+            const sectionsForFloatingImageVisibility = ['ciencia', 'sociedad'];
 
             const observer = new IntersectionObserver((entries) => {
                 let anyVisibleFloatingImageSection = false;
@@ -1014,26 +650,24 @@
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.id;
 
-                        // Cambiar el color de fondo del body
+                        // Cambia el color de fondo del body
                         if (sectionColors[sectionId]) {
                             body.style.backgroundColor = sectionColors[sectionId];
                         }
 
-                        // Comprobar si esta sección intersectante debe mostrar la imagen flotante
+                        // Comprueba si esta sección intersectante debe mostrar la imagen flotante
                         if (sectionsForFloatingImageVisibility.includes(sectionId)) {
                             anyVisibleFloatingImageSection = true;
                         }
 
                         // Lógica de reproducción/pausa del video
-                        if (sectionId === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
-                            // Intentar reproducir el video cuando la sección es visible
-                            // La reproducción automática puede fallar si el navegador la bloquea (especialmente sin interacción previa del usuario)
+                        if (sectionId === 'video-section' && player && isPlayerReady) {
                             player.playVideo();
-                            player.mute(); // Asegurarse de que esté silenciado para el autoplay si es permitido
+                            player.mute();
                         }
                     } else {
-                        // Pausar el video cuando la sección no es visible
-                        if (entry.target.id === 'video-section' && player && isPlayerReady) { // Añadida la verificación isPlayerReady
+                        // Pausa el video cuando la sección no es visible
+                        if (entry.target.id === 'video-section' && player && isPlayerReady) {
                             player.pauseVideo();
                         }
                     }
@@ -1047,14 +681,14 @@
                 }
             }, { threshold: 0.1 }); // Umbral pequeño para detectar entrada/salida rápidamente
 
-            // Observar cada sección relevante
+            // Observa cada sección relevante
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Inicialmente, ocultar la imagen si la sección de inicio o cualquier sección donde no deba verse
+            // Inicialmente, oculta la imagen si la sección de inicio o cualquier sección donde no deba verse
             // es la primera visible.
-            const initialHiddenSections = ['inicio', 'nosotros', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'cta-section', 'footer-section'];
+            const initialHiddenSections = ['inicio', 'aula', 'video-section', 'our-history-images', 'timeline-section', 'mission-statement', 'catalog-section', 'footer-section', 'carta-director'];
 
             const initialCheckObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1071,26 +705,26 @@
                 }
             });
 
-            // Counter animation logic
+            // Lógica de animación del contador
             const counterElement = document.getElementById('counterDisplay');
-            let hasAnimated = false; // Flag to ensure animation runs only once
+            let hasAnimated = false; // Bandera para asegurar que la animación se ejecute solo una vez
 
             const counterObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        animateCounter(counterElement, 100, ' +', ' OBRAS PUBLICADAS');
-                        hasAnimated = true; // Set flag to true after animation starts
-                        counterObserver.unobserve(entry.target); // Stop observing after animation
+                        animateCounter(counterElement, 100, ' +', ' LIBROS EDITADOS');
+                        hasAnimated = true; // Establece la bandera a true después de que la animación comienza
+                        counterObserver.unobserve(entry.target); // Deja de observar después de la animación
                     }
                 });
-            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+            }, { threshold: 0.5 }); // Se activa cuando el 50% del elemento es visible
 
             counterObserver.observe(counterElement);
 
             function animateCounter(element, target, prefix = '', suffix = '') {
                 let current = 0;
-                const duration = 2000; // 2 seconds
-                const stepTime = 10; // milliseconds
+                const duration = 2000; // 2 segundos
+                const stepTime = 10; // milisegundos
                 const increment = target / (duration / stepTime);
 
                 const timer = setInterval(() => {
@@ -1103,10 +737,10 @@
                 }, stepTime);
             }
 
-            // Scroll-to-top button logic
+            // Lógica del botón de desplazamiento hacia arriba
             const scrollToTopBtn = document.getElementById("scroll-to-top-btn");
 
-            // Show or hide the button based on scroll position
+            // Muestra u oculta el botón según la posición de desplazamiento
             window.onscroll = function() {
                 if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                     scrollToTopBtn.style.display = "block";
@@ -1115,12 +749,12 @@
                 }
             };
 
-            // When the user clicks on the button, scroll to the top of the document
+            // Cuando el usuario hace clic en el botón, se desplaza a la parte superior del documento
             scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Hamburger menu logic
+            // Lógica del menú de hamburguesa
             const hamburgerButton = document.getElementById('hamburger-button');
             const mobileNavContainer = document.getElementById('mobile-nav-container');
             const mobileNavLinks = document.getElementById('mobile-nav-links');
@@ -1129,54 +763,53 @@
                 mobileNavContainer.classList.toggle('open');
             });
 
-            // Close mobile menu when a link is clicked
+            // Cierra el menú móvil cuando se hace clic en un enlace
             mobileNavLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNavContainer.classList.remove('open');
                 });
             });
 
-            // Close mobile menu when clicking outside of it (but not on the button)
+            // Cierra el menú móvil cuando se hace clic fuera de él (pero no en el botón)
             document.addEventListener('click', (event) => {
                 if (!mobileNavContainer.contains(event.target) && !hamburgerButton.contains(event.target) && mobileNavContainer.classList.contains('open')) {
                     mobileNavContainer.classList.remove('open');
                 }
             });
 
-            // Function to create and populate a carousel for collections
-            function setupCollectionCarousel(trackId, imageUrls, numImages = 10, animationDuration = 20) {
+            // Función para crear y poblar un carrusel para colecciones
+            function setupCarousel(trackId, itemClassName, imageUrls, numImages = 10, animationDuration = 20) {
                 const track = document.getElementById(trackId);
                 if (!track) return;
 
                 let imagesToUse = [];
-                // Repeat images to fill numImages
+                // Repite las imágenes para llenar numImages
                 for (let i = 0; i < numImages; i++) {
                     imagesToUse.push(imageUrls[i % imageUrls.length]);
                 }
+                imagesToUse = imagesToUse.concat(imagesToUse); // Duplica para un bucle sin fisuras
 
-                // Duplicate images for seamless looping (at least one full set)
-                imagesToUse = imagesToUse.concat(imagesToUse); 
-
-                track.innerHTML = ''; // Clear existing content
+                track.innerHTML = ''; // Limpia el contenido existente
                 imagesToUse.forEach(url => {
                     const item = document.createElement('div');
-                    item.classList.add('carousel-item-collection');
+                    item.classList.add(itemClassName); // Usa el nombre de clase pasado
                     const img = document.createElement('img');
                     img.src = url;
-                    img.alt = 'Ejemplo de libro'; // Generic alt text
-                    // Add onerror for fallback image
+                    img.alt = 'Imagen de carrusel'; // Texto alternativo genérico
+                    // Añade onerror para la imagen de respaldo
                     img.onerror = function() { this.onerror=null; this.src='https://placehold.co/250x350/CCCCCC/FFFFFF/png?text=Error'; };
                     item.appendChild(img);
                     track.appendChild(item);
                 });
 
-                // Calculate the width for the animation dynamically based on the first item's width
-                // This assumes all images have the same width as defined in CSS for .carousel-item-collection
-                // and that the first item exists.
-                const singleItemWidth = track.querySelector('.carousel-item-collection')?.offsetWidth || 250; 
+                // Calcula el ancho para la animación dinámicamente basándose en el ancho del primer elemento
+                // Esto asume que todas las imágenes tienen el mismo ancho definido en CSS para .carousel-item-collection
+                // y que el primer elemento existe.
+                const firstItem = track.querySelector(`.${itemClassName}`);
+                const singleItemWidth = firstItem ? firstItem.offsetWidth : 250; // Valor predeterminado si no se encuentra
                 const totalOriginalWidth = numImages * singleItemWidth;
 
-                // Create a dynamic stylesheet to update the animation
+                // Crea una hoja de estilos dinámica para actualizar la animación
                 const styleId = `scrollRightToLeft-${trackId}-style`;
                 let styleSheet = document.getElementById(styleId);
                 if (!styleSheet) {
@@ -1195,11 +828,40 @@
                 `;
             }
 
-            // Call the function for each carousel with the specified image URLs
-            setupCollectionCarousel('aulasCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-02-optimiza-aulas.png"], 10, 20);
-            setupCollectionCarousel('cienciasCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-01-alero-ciencias.png"], 10, 20);
-            setupCollectionCarousel('sociedadCarouselTrack', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-01-03-esas%20cosas-sociedad.png"], 10, 20);
+            // URLs de imágenes para el carrusel de historia
+            const historyImageUrls = [
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/01-historia-pablo-lulic.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/05-el-cubo.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/04-libreria.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/03-murales-escritura.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/02-murales-escritura.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/06-jornada-pintura.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/07--libreria.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/08-expo-unlu.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/09-impresiones.jpg",
+                "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/10-presentacion.jpg"
+            ];
+
+ // Llama a la función para cada carrusel con las URLs de imagen especificadas
+            setupCarousel('aulasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-1.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-2.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-3.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-4.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-5.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-6.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-7.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-8.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-9.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-10.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-11.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-12.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-13.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-14.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-15.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-16.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-17.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-18.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-19.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/a-20.png"], 20, 40);
+            setupCarousel('cienciasCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-1.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-2.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-3.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-4.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-6.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-7.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-8.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-9.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-10.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-11.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-12.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-13.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-14.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-15.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-16.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-17.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-18.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-19.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-20.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/c-21.png"], 20, 40);
+            setupCarousel('sociedadCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-1.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-2.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-3.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-4.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-5.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-6.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-7.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-8.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-9.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-10.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-11.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-12.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-13.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-14.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-15.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-16.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-17.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-18.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-19.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/s-20.png"], 20, 40);
+            setupCarousel('serievidaCarouselTrack', 'carousel-item-collection', ["https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/shv-1.png", "https://www.edunlu.unlu.edu.ar/sites/www.edunlu.unlu.edu.ar/files/site/shv-2.png"], 20, 40);
+            setupCarousel('historyCarouselTrack', 'carousel-item-history', historyImageUrls, historyImageUrls.length, 30); // Mayor duración para la historia
         });
+
+        // Lógica para la carta del director desplegable por click
+        const directorLetterTrigger = document.getElementById('directorLetterTrigger');
+        const collapsibleLetterContent = document.getElementById('collapsibleLetterContent');
+        const arrowIcon = directorLetterTrigger.querySelector('.arrow-icon');
+
+        if (directorLetterTrigger && collapsibleLetterContent && arrowIcon) {
+            directorLetterTrigger.addEventListener('click', () => {
+                collapsibleLetterContent.classList.toggle('is-open');
+                arrowIcon.classList.toggle('rotated');
+            });
+        }
     </script>
+
 </body>
 </html>
